@@ -60,7 +60,7 @@ class CheckoutController extends Controller
 
         // Charge with stripe
         try {
-            /*$stripe = new Stripe();
+            $stripe = new Stripe();
             $stripe->charges()->create([
                 'amount' => $this->calculateCoupon()->get('newTotal'),
                 'currency' => 'usd',
@@ -71,16 +71,17 @@ class CheckoutController extends Controller
                     'quantity' => Cart::instance('shopping')->count(),
                     'discount' => collect(session()->get('coupon'))->toJson(),
                 ],
-            ]);*/
+            ]);
 
             // Store order in orders tables
             $order = $this->addToOrdersTables($request, null);
 
             // Send order Email to customer
-            /*Mail::send(new OrderShipped($order));*/
-            $orderShipped = new OrderShipped($order);
+            Mail::send(new OrderShipped($order));
+
+            /*$orderShipped = new OrderShipped($order);
             $test[1] = $order->billing_email;
-            dd($test);
+            dd($test);*/
 
             // Success
             Cart::instance('shopping')->destroy();
