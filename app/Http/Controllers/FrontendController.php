@@ -221,7 +221,7 @@ class FrontendController extends Controller
         return redirect()->back()->with('error', 'An error occured, please try again later!');
     }
 
-    public function test()
+    /*public function test()
     {
         return view('test');
     }
@@ -233,6 +233,6 @@ class FrontendController extends Controller
             '/products/May2018/'.$request->file('picture')->getClientOriginalName(),
             'public_html'
         );
-    }
+    }*/
 
 }

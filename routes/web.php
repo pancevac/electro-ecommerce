@@ -78,5 +78,7 @@ Route::get('/newsletter-Thankyou', function () {
     return redirect('/');
 })->name('frontend.newsletter-thankyou');
 
-Route::get('/test', 'FrontendController@test')->name('test');
-Route::post('/test_obrada', 'FrontendController@obrada')->name('test_obr');
+// About us
+Route::view('/about-us', 'pages.about_us')->name('about_us');
+// Contact
+Route::view('/contact', 'pages.contact')->name('contact');
