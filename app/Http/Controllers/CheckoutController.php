@@ -77,11 +77,13 @@ class CheckoutController extends Controller
             $order = $this->addToOrdersTables($request, null);
 
             // Send order Email to customer
-            Mail::send(new OrderShipped($order));
-
-            /*$orderShipped = new OrderShipped($order);
-            $test[1] = $order->billing_email;
-            dd($test);*/
+            /*Mail::send(new OrderShipped($order));*/
+            // Modified, cuz of 000webhosting only support mail()
+            /*dd(new OrderShipped($order));*/
+            $orderShipped = new OrderShipped($order);
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            mail($order->billing_email, env('APP_NAME').' Order', $orderShipped->render(), $headers);
 
             // Success
             Cart::instance('shopping')->destroy();
