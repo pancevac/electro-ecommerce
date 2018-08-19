@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Actuallymab\LaravelComment\Commentable;
@@ -44,9 +46,14 @@ class Product extends Model
         return $this->hasOne('App\Models\Discount');
     }
 
+    public function orders()
+    {
+        return $this->belongsToMany('App\Models\Order')->withPivot('quantity', 'price', 'percent_off');
+    }
+
     public function might_also_like($limit)
     {
-        return $this->inRandomOrder()->take($limit);
+        return $this->with(['category', 'discount', 'comments'])->inRandomOrder()->take($limit)->get();
     }
 
     public function store()
@@ -67,6 +74,38 @@ class Product extends Model
 
         // return record
         return $record;
+    }
+
+    public function getAverageRate($products)
+    {
+        if ($products instanceof Collection) {
+
+            foreach ($products as $product) {
+                $product->averageProductRate = $product->comments->avg('rate');
+            }
+        }
+        else {
+            $products->averageProductRate = $products->comments->avg('rate');
+        }
+
+        return $products;
+    }
+
+    public function getRelatedProducts($product)
+    {
+        return $this->with(['category', 'comments', 'discount'])->whereHas('category', function($category) use ($product) {
+            $category->where('id', $product->category->id);
+        })
+            ->where('id', '<>', $product->id)
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+    }
+
+    public function getTotalComments($product)
+    {
+        $product->totalCommentsCount = $product->comments->count();
+        return $product;
     }
 
 }

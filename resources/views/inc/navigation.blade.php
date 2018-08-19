@@ -5,7 +5,12 @@
         <!-- responsive-nav -->
         <div id="responsive-nav">
             <!-- NAV -->
-            {{ menu('navigation', 'components.menus.navigation_menu') }}
+            @php
+                $nav_menu = \Illuminate\Support\Facades\Cache::remember('nav_menu', 2, function () {
+                    return menu('navigation', 'components.menus.navigation_menu');
+                });
+            @endphp
+            {{ $nav_menu }}
             <!-- /NAV -->
         </div>
         <!-- /responsive-nav -->

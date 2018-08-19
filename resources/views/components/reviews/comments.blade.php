@@ -1,11 +1,11 @@
 <div class="col-md-6">
-    @if(count($comments))
+    @if(count($product->comments))
     <div id="reviews">
         <ul class="reviews">
-
-            @foreach($comments as $comment)
+            @foreach($product->comments()->paginate(3) as $comment)
                 <li>
                     <div class="review-heading">
+
                         <h5 class="name">{{ $comment->commented->name }}</h5>
                         <p class="date">{{ $comment->created_at }}</p>
                         <div class="review-rating">
@@ -30,7 +30,7 @@
         </ul>
         <ul class="reviews-pagination">
 
-            {{ $comments->links('vendor.pagination.custom_comment_pagination') }}
+            {{ $product->comments()->paginate(3)->links('vendor.pagination.custom_comment_pagination') }}
         </ul>
     </div>
         @else

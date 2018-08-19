@@ -1,6 +1,6 @@
 <ul class="main-nav nav navbar-nav">
     @foreach($items as $menu_item)
-        <li @if($loop->index == 0 && \Request::route()->getName() == "frontend.index") class="active" @endif><a href="{{ $menu_item->link() }}">{{ $menu_item->title }}</a></li>
+        <li @if($loop->index == 0) id="home-page" @endif><a href="{{ $menu_item->link() }}">{{ $menu_item->title }}</a></li>
     @endforeach
     {{--<li class="active"><a href="{{ route('frontend.index') }}">Home</a></li>
     <li><a href="{{ route('store') }}">Shop</a></li>

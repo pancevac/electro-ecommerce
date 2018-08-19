@@ -9,16 +9,19 @@ use App\Models\OrderProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class FrontendController extends Controller
 {
     private $productName;
+    private $cacheMinutes;
     protected $test;
 
     public function __construct()
     {
-        //
+        // Retreiving minutes for caching products
+        $this->cacheMinutes = config('app.cacheMinute');
     }
 
     public function index()
@@ -26,20 +29,36 @@ class FrontendController extends Controller
         // Get product model instance
         $model = new Product();
         // Get random products
-        $featured_products = $model->take(10)->where('featured', true)->inRandomOrder()->get();
+        $featured_products = Cache::remember('featured_products', $this->cacheMinutes, function () use ($model) {
+            $products = $model->with(['category', 'discount', 'comments'])->take(10)->where('featured', true)->get();
+            // Added average rate properties in collection to every products
+            return $model->getAverageRate($products);
+        });
+
         // Get new products
-        $new_products = $model->take(10)->orderBy('created_at', 'DESC')->get();
+        $new_products = Cache::remember('new_products', $this->cacheMinutes, function () use ($model) {
+            $products = $model->with(['category', 'discount', 'comments'])->take(10)->orderBy('created_at', 'DESC')->get();
+            return $model->getAverageRate($products);
+        });
+
         // Get top sales
-        $top_sales = new OrderProduct();
+        $top_sales = Cache::remember('top_sales', $this->cacheMinutes, function () {
+            return OrderProduct::get_top_sales(6);
+        });
+
         // Might also like
-        $mightAlsoLike = $model->might_also_like(6)->get();
+        $mightAlsoLike = Cache::remember('mightAlsoLike', $this->cacheMinutes, function () use ($model) {
+            return $model->might_also_like(6);
+        });
         // Discount products
-        $discounts = $model->has('discount')->inRandomOrder()->get();
+        $discounts = Cache::remember('discounts', $this->cacheMinutes, function () use ($model) {
+            return $model->with(['category', 'discount'])->has('discount')->inRandomOrder()->get();
+        });
         // Return view
         return view('pages.index')->with([
             'featured_products' => $featured_products,
             'new_products' => $new_products,
-            'top_sales' => $top_sales->get_top_sales(6),
+            'top_sales' => $top_sales,
             'might_also_like' => $mightAlsoLike,
             'discounts' => $discounts,
         ]);
@@ -50,19 +69,29 @@ class FrontendController extends Controller
         // Get product model instance
         $model = new Product();
 
-        // Get product by id
-        $product = $model->find($id);
-        $this->test = $product;
+        // Get product by id with comments and others relationships
+        /*$product = $model->with(['category', 'discount', 'manufacturer', 'comments'])->whereHas('comments', function ($comments) {
+            $comments->where('approved', true)->orderBy('created_at', 'DESC');
+        })->where('products.id', $id)->first();*/
+        $product = $model->with(['category', 'discount', 'manufacturer', 'comments' => function ($comments) {
+            $comments->where('approved', true)->orderBy('created_at', 'DESC');
+        }])->where('id', $id)->first();
 
-        // Get rate and comments
-        $comments = $product->comments()->where('approved', true)->orderBy('created_at', 'DESC')->paginate(3);
+        // Get total comments number
+        $product = $model->getTotalComments($product);
+
+        // Get comments for product
+        $product = $model->getAverageRate($product);
+
+        //dd($product);
 
         // Get related products based on loaded product's category
-        $related_products = Category::find($product->category->id)->products()->inRandomOrder()->take(4)->get();
+        $related_products = $model->getRelatedProducts($product);
+        $related_products = $model->getAverageRate($related_products);
+
 
         return view('pages.product')->with([
             'product' => $product,
-            'comments' => $comments,
             'related_products' => $related_products,
         ]);
     }
@@ -162,16 +191,14 @@ class FrontendController extends Controller
 
         // Get query result
         $result = $product->store()->get();*/
-
-        // Top sales
-        $top_sales = new OrderProduct();
+        //dd($products, $categories, $brands, OrderProduct::get_top_sales(5));
 
         // Return view
         return view('pages.store')->with([
             'products' => $products,
             'categories' => $categories,
             'brands' => $brands,
-            'top_sales' => $top_sales->get_top_sales(5),
+            'top_sales' => OrderProduct::get_top_sales(5),
         ]);
     }
 

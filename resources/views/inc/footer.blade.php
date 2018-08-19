@@ -18,7 +18,15 @@
                     </div>
                 </div>
 
-                {{ menu('footer', 'components.menus.footer_menu') }}
+                {{--@php
+                \Illuminate\Support\Facades\Cache::remember()
+                @endphp--}}
+                @php
+                $footer_menu = \Illuminate\Support\Facades\Cache::remember('footer_menu', 2, function () {
+                    return menu('footer', 'components.menus.footer_menu');
+                });
+                @endphp
+                {{ $footer_menu }}
 
             </div>
             <!-- /row -->

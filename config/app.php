@@ -2,6 +2,8 @@
 
 return [
 
+    'cacheMinute' => env('CACHE_MINUTE', 5),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

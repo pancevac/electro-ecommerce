@@ -222,10 +222,10 @@
                                         <img src="{{ productImage($top_sale->image) }}" alt="">
                                     </div>
                                     <div class="product-body">
-                                        <p class="product-category">{{ $top_sale->category->name }}</p>
+                                        <p class="product-category">{{ $top_sale->categoryName }}</p>
                                         <h3 class="product-name"><a href="{{ route('product', ['id' => $top_sale->id]) }}">{{ $top_sale->name }}</a></h3>
-                                        @if(isset($top_sale->discount->percent_off))
-                                            <h4 class="product-price">${{ calculateDiscountPrice($top_sale->price, $top_sale->discount->percent_off) }} <del class="product-old-price">${{ $top_sale->price }}</del></h4>
+                                        @if(isset($top_sale->percentOff))
+                                            <h4 class="product-price">${{ calculateDiscountPrice($top_sale->price, $top_sale->percentOff) }} <del class="product-old-price">${{ $top_sale->price }}</del></h4>
                                         @else
                                             <h4 class="product-price">${{ $top_sale->price }}</h4>
                                         @endif
@@ -245,10 +245,10 @@
                                         <img src="{{ productImage($top_sale->image) }}" alt="">
                                     </div>
                                     <div class="product-body">
-                                        <p class="product-category">{{ $top_sale->category->name }}</p>
+                                        <p class="product-category">{{ $top_sale->categoryName }}</p>
                                         <h3 class="product-name"><a href="{{ route('product', ['id' => $top_sale->id]) }}">{{ $top_sale->name }}</a></h3>
-                                        @if(isset($top_sale->discount->percent_off))
-                                            <h4 class="product-price">${{ calculateDiscountPrice($top_sale->price, $top_sale->discount->percent_off) }} <del class="product-old-price">${{ $top_sale->price }}</del></h4>
+                                        @if(isset($top_sale->percentOff))
+                                            <h4 class="product-price">${{ calculateDiscountPrice($top_sale->price, $top_sale->percentOff) }} <del class="product-old-price">${{ $top_sale->price }}</del></h4>
                                         @else
                                             <h4 class="product-price">${{ $top_sale->price }}</h4>
                                         @endif
@@ -302,10 +302,10 @@
                                         <img src="{{ productImage($top_sale->image) }}" alt="">
                                     </div>
                                     <div class="product-body">
-                                        <p class="product-category">{{ $top_sale->category->name }}</p>
+                                        <p class="product-category">{{ $top_sale->categoryName }}</p>
                                         <h3 class="product-name"><a href="{{ route('product', ['id' => $top_sale->id]) }}">{{ $top_sale->name }}</a></h3>
-                                        @if(isset($product->discount->percent_off))
-                                            <h4 class="product-price">${{ calculateDiscountPrice($product->price, $product->discount->percent_off) }} <del class="product-old-price">${{ $product->price }}</del></h4>
+                                        @if(isset($product->percentOff))
+                                            <h4 class="product-price">${{ calculateDiscountPrice($product->price, $product->percentOff) }} <del class="product-old-price">${{ $product->price }}</del></h4>
                                         @else
                                             <h4 class="product-price">${{ $product->price }}</h4>
                                         @endif

@@ -50,18 +50,24 @@
                         <h2 class="product-name">{{ $product->name }}</h2>
                         <div>
                             <div class="product-rating">
-                                @for($i = 0; $i < round($product->averageRate()); $i++)
+                                @php
+                                    $averageRate = $product->averageProductRate;
+                                @endphp
+                                @for($i = 0; $i < round($product->averageProductRate); $i++)
 
                                     <i class="fa fa-star"></i>
 
                                 @endfor
-                                @for($i = 0; $i < 5 - round($product->averageRate()); $i++)
+                                @for($i = 0; $i < 5 - round($product->averageProductRate); $i++)
 
                                     <i class="fa fa-star-o"></i>
 
                                 @endfor
                             </div>
-                            <a class="review-link" href="#tab3">{{ $product->totalCommentCount() }} Review(s) | Add your review</a>
+                            @php
+                                $totalCommentCount = $product->totalCommentsCount
+                            @endphp
+                            <a class="review-link" href="#tab3">{{ $totalCommentCount }} Review(s) | Add your review</a>
                         </div>
                         <div>
                             @if(isset($product->discount->percent_off))
@@ -134,7 +140,7 @@
                         <ul class="tab-nav">
                             <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
                             <li><a data-toggle="tab" href="#tab2">Details</a></li>
-                            <li><a data-toggle="tab" href="#tab3">Reviews ({{ $product->totalCommentCount() }})</a></li>
+                            <li><a data-toggle="tab" href="#tab3">Reviews ({{ $totalCommentCount }})</a></li>
                         </ul>
                         <!-- /product tab nav -->
 
