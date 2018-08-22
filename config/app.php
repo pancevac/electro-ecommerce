@@ -2,7 +2,7 @@
 
 return [
 
-    'cacheMinute' => env('CACHE_MINUTE', 5),
+    'cacheMinute' => env('CACHE_MINUTE', getMinutesToTheNextHour()),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://electro-shopp.000webhostapp.com/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY', 'base64:nCbMvJgYVJmgzYTw9TZmSWS+D0iI2t0BDFJZmLBQJ+o='),
 
     'cipher' => 'AES-256-CBC',
 

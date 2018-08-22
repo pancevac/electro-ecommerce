@@ -21,3 +21,8 @@ function newProducts($time)
         return true;
     }
 }
+
+function getMinutesToTheNextHour()
+{
+    return \Carbon\Carbon::now()->diffInMinutes(\Carbon\Carbon::now()->addHour()->format('Y-m-d H:00:00'));
+}
