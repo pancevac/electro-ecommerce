@@ -61,6 +61,7 @@ class CheckoutController extends Controller
         // Charge with stripe
         try {
             $stripe = new Stripe();
+            $stripe->setApiKey(config('services.stripe.secret'));
             $stripe->charges()->create([
                 'amount' => $this->calculateCoupon()->get('newTotal'),
                 'currency' => 'usd',
