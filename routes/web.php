@@ -11,10 +11,35 @@
 |
 */
 
-// Products
-Route::get('/', 'FrontendController@index')->name('frontend.index');
-Route::get('/product/{id}', 'FrontendController@product')->name('product');
-Route::get('/store', 'FrontendController@store')->name('store');
+Route::group([
+    'prefix' => LaravelLocalization::setLocale(),
+    'middleware' => ['localize'],
+], function () {
+
+    Route::get('/', 'FrontendController@index')->name('frontend.index');
+
+    // Products
+    Route::get(LaravelLocalization::transRoute('routes.product'), 'FrontendController@product')->name('product');
+    Route::get(LaravelLocalization::transRoute('routes.shop'), 'FrontendController@store')->name('store');
+
+    // User
+    Route::get(LaravelLocalization::transRoute('routes.customer.dashboard'), 'UserController@index')->name('dashboard');
+    Route::get(LaravelLocalization::transRoute('routes.customer.edit'), 'UserController@edit')->name('user.edit');
+    Route::post(LaravelLocalization::transRoute('routes.customer.update'), 'UserController@update')->name('user.update');
+    Route::get(LaravelLocalization::transRoute('routes.customer.orders'), 'UserController@orders')->name('user.orders');
+    Route::get(LaravelLocalization::transRoute('routes.customer.order'),'UserController@order')->name('user.order');
+    //Route::get('/home', 'HomeController@index')->name('home');
+
+    // Checkout
+    Route::get(LaravelLocalization::transRoute('routes.checkout'), 'CheckoutController@index')->name('checkout.index');
+    Route::post(LaravelLocalization::transRoute('routes.purchase'), 'CheckoutController@store')->name('charge');
+
+    // About us
+    Route::view(LaravelLocalization::transRoute('routes.about'), 'pages.about-us')->name('about_us');
+    // Contact
+    Route::view(LaravelLocalization::transRoute('routes.contact'), 'pages.contact')->name('contact');
+
+});
 
 // Cart
 Route::get('cart', 'CartController@index')->name('cart.index');
@@ -28,11 +53,6 @@ Route::post('wishlist', 'WishlistController@store')->name('wishlist.store')->mid
 Route::put('wishlist/{id}', 'WishlistController@update')->name('wishlist.update')->middleware('auth');
 Route::delete('wishlist/{id}', 'WishlistController@destroy')->name('wishlist.destroy')->middleware('auth');*/
 Route::resource('wishlist', 'WishlistController')->middleware('auth');
-
-
-// Checkout
-Route::get('/checkout', 'CheckoutController@index')->name('checkout.index');
-Route::post('/charge', 'CheckoutController@store')->name('charge');
 
 // Comment handler
 Route::put('product/{coupon}', [
@@ -55,14 +75,6 @@ Route::get('/thankyou', function () {
 
 Auth::routes();
 
-// User
-Route::get('/dashboard', 'UserController@index')->name('dashboard');
-Route::get('/user/edit', 'UserController@edit')->name('user.edit');
-Route::post('/user/update', 'UserController@update')->name('user.update');
-Route::get('/user/orders', 'UserController@orders')->name('user.orders');
-Route::get('/user/order/{id}','UserController@order')->name('user.order');
-Route::get('/home', 'HomeController@index')->name('home');
-
 // Admin Panel
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
@@ -77,8 +89,3 @@ Route::get('/newsletter-Thankyou', function () {
     }
     return redirect('/');
 })->name('frontend.newsletter-thankyou');
-
-// About us
-Route::view('/about-us', 'pages.about_us')->name('about_us');
-// Contact
-Route::view('/contact', 'pages.contact')->name('contact');
