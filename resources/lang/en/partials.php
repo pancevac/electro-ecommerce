@@ -25,5 +25,6 @@ return [
         'add_to_wish_list' => 'Add to wish list',
         'add_to_compare' => 'Add to compare',
         'quick_view' => 'Quick_view',
+        'new' => 'NEW',
     ],
 ];

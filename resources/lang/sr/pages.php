@@ -38,4 +38,18 @@ return [
         'button' => 'Kupite',
         'button2' => 'Kupite',
     ],
+
+    'cart' => [
+        'your_shopping_cart' => 'Vaša korpa',
+    ],
+
+    'shop' => [
+        'categories' => 'Kategorije',
+        'price' => 'Cena',
+        'top_selling' => 'Najprodavanije',
+        'sort_by' => 'Sortiraj',
+        'price_up' => 'Cena rastuća',
+        'price_down' => 'Cena padajuća',
+        'show' => 'Prikaži',
+    ],
 ];

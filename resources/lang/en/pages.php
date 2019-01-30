@@ -38,4 +38,18 @@ return [
         'button' => 'Shop',
         'button2' => 'Shop now',
     ],
+
+    'cart' => [
+        'your_shopping_cart' => 'Your Shopping Cart',
+    ],
+
+    'shop' => [
+        'categories' => 'Categories',
+        'price' => 'Price',
+        'top_selling' => 'Top Selling',
+        'sort_by' => 'Sort By',
+        'price_up' => 'Price up',
+        'price_down' => 'Price down',
+        'show' => 'Show',
+    ],
 ];

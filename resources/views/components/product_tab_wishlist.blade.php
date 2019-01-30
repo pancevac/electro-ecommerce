@@ -5,7 +5,7 @@
             @if(isset($product->model->discount->percent_off))
                 <span class="sale">-{{ $product->model->discount->percent_off }}%</span>
             @endif
-            <span class="new">NEW</span>
+            <span class="new">{{ __('partials.product.new') }}</span>
             <a href="#" onclick="document.getElementById('remove-wishlist').click()"><i class="fa fa-close" type="submit"></i></a>
         </div>
     </div>
@@ -33,13 +33,13 @@
             @endfor
         </div>
         <div class="product-btns">
-            <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-            <button class="quick-view" onclick="window.location.href='{{ route('product', ['id' => $product->id]) }}'"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+            <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">{{ __('partials.product.add_to_compare') }}</span></button>
+            <button class="quick-view" onclick="window.location.href='{{ route('product', ['id' => $product->id]) }}'"><i class="fa fa-eye"></i><span class="tooltipp">{{ __('partials.product.quick_view') }}</span></button>
         </div>
     </div>
     <div class="add-to-cart">
         {{ Form::open(['method' => 'PUT', 'route' => ['cart.update', $product->id]]) }}
-        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> {{ __('partials.product.add_to_cart') }}</button>
         {{ Form::close() }}
     </div>
 </div>

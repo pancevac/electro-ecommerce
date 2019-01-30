@@ -6,7 +6,7 @@
                 <span class="sale">-{{ $product->discount->percent_off }}%</span>
             @endif
                 @if(newProducts($product->created_at))
-                    <span class="new">NEW</span>
+                    <span class="new">{{ __('partials.product.new') }}</span>
                 @endif
         </div>
     </div>

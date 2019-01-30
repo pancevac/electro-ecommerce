@@ -25,5 +25,6 @@ return [
         'add_to_wish_list' => 'Dodaj u listu želja',
         'add_to_compare' => 'Uporedi',
         'quick_view' => 'Pregledaj',
+        'new' => 'NOVO',
     ],
 ];

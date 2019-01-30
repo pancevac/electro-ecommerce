@@ -17,7 +17,7 @@
                 <!-- section title -->
                 <div class="col-md-12">
                     <div class="section-title">
-                        <h3 class="title">Your Shopping Cart({{ $products->count() }})</h3>
+                        <h3 class="title">{{ __('pages.cart.your_shopping_cart') }}({{ $products->count() }})</h3>
 
                     </div>
                 </div>

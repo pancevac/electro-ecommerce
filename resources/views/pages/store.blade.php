@@ -32,7 +32,7 @@
                 <div id="aside" class="col-md-3">
                     <!-- aside Widget -->
                     <div class="aside">
-                        <h3 class="aside-title">Categories</h3>
+                        <h3 class="aside-title">{{ __('pages.shop.categories') }}</h3>
                         <div class="checkbox-filter">
 
                             @foreach($categories as $category)
@@ -55,7 +55,7 @@
 
                     <!-- aside Widget -->
                     <div class="aside">
-                        <h3 class="aside-title">Price</h3>
+                        <h3 class="aside-title">{{ __('pages.shop.price') }}</h3>
                         <div class="price-filter">
                             <div id="price-slider"></div>
                             <div class="input-number price-min">
@@ -98,7 +98,7 @@
 
                     <!-- aside Widget -->
                     <div class="aside">
-                        <h3 class="aside-title">Top selling</h3>
+                        <h3 class="aside-title">{{ __('pages.shop.top_selling') }}</h3>
 
                         @include('components.product_widget')
 
@@ -113,15 +113,15 @@
                     <div class="store-filter clearfix">
                         <div class="store-sort">
                             <label>
-                                Sort By:
+                                {{ __('pages.shop.sort_by') }}:
                                 <select class="input-select" id="sortBy">
-                                    <option value="price_up" {{ request()->sort == 'price_up' ? 'selected="selected"' : ''}}>Price Up</option>
-                                    <option value="price_down" {{ request()->sort == 'price_down' ? 'selected="selected"' : ''}}>Price Down</option>
+                                    <option value="price_up" {{ request()->sort == 'price_up' ? 'selected="selected"' : ''}}>{{ __('pages.shop.price_up') }}</option>
+                                    <option value="price_down" {{ request()->sort == 'price_down' ? 'selected="selected"' : ''}}>{{ __('pages.shop.price_down') }}</option>
                                 </select>
                             </label>
 
                             <label>
-                                Show:
+                                {{ __('pages.shop.show') }}:
                                 <select class="input-select" id="show">
                                     <option value="9">9</option>
                                     <option value="18">18</option>
