@@ -7,15 +7,31 @@ use Illuminate\Support\Collection;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Actuallymab\LaravelComment\Commentable;
+use TCG\Voyager\Traits\Translatable;
 
 class Product extends Model
 {
     use Commentable;
-    use Searchable;
+    //use Searchable;
+    use Translatable;
 
     // Comment setting
     protected $mustBeApproved = true;
     protected $canBeRated = true;
+
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['translations'];
+
+    /**
+     * Translatable attributes
+     *
+     * @var array
+     */
+    protected $translatable = ['name', 'description', 'details'];
 
     // Fillable attributes
 
@@ -54,6 +70,27 @@ class Product extends Model
     public function might_also_like($limit)
     {
         return $this->with(['category', 'discount', 'comments'])->inRandomOrder()->take($limit)->get();
+    }
+
+    /**
+     * Get translatable attribute
+     *
+     * @param $attribute
+     * @return null
+     */
+    public function get($attribute)
+    {
+        return $this->getTranslatedAttribute($attribute);
+    }
+
+    /**
+     * Generate product url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return route('product', ['product' => $this->id]);
     }
 
     public function store()

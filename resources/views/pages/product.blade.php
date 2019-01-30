@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Product
+    {{ $product->get('name') }}
 @endsection()
 
 @section('breadcrumbs', Breadcrumbs::render('product', $product))
@@ -47,7 +47,7 @@
                 <!-- Product details -->
                 <div class="col-md-5">
                     <div class="product-details">
-                        <h2 class="product-name">{{ $product->name }}</h2>
+                        <h2 class="product-name">{{ $product->get('name') }}</h2>
                         <div>
                             <div class="product-rating">
                                 @php
@@ -67,7 +67,7 @@
                             @php
                                 $totalCommentCount = $product->totalCommentsCount
                             @endphp
-                            <a class="review-link" href="#tab3">{{ $totalCommentCount }} Review(s) | Add your review</a>
+                            <a class="review-link" href="#tab3">{{ $totalCommentCount }} {{ __('pages.product.reviews_status') }}</a>
                         </div>
                         <div>
                             @if(isset($product->discount->percent_off))
@@ -75,7 +75,13 @@
                             @else
                                 <h3 class="product-price">${{ $product->price }}</h3>
                             @endif
-                            <span class="product-available">@if($product->stock) In Stock @else Not In Stock @endif</span>
+                            <span class="product-available">
+                                @if($product->stock)
+                                    {{ __('pages.product.in_stock') }}
+                                @else
+                                    {{ __('pages.product.not_in_stock') }}
+                                @endif
+                            </span>
                         </div>
                         <p>{!! $product->details !!}</p>
 
@@ -96,7 +102,7 @@
                         {{ Form::open(['method' => 'PUT', 'route' => ['cart.update', $product->id]]) }}
                         <div class="add-to-cart">
                             <div class="qty-label">
-                                Qty
+                                {{ __('pages.product.quantity') }}
                                 <div class="input-number">
                                     <input type="number" name="qty" value="1">
                                     <span class="qty-up">+</span>
@@ -113,16 +119,16 @@
                             {{ Form::close() }}
                         </ul>
                         <ul class="product-links">
-                            <li>Brand:</li>
+                            <li>{{ __('pages.product.brand') }}:</li>
                             <li><a href="{{ route('store', ['brand' => $product->manufacturer->name]) }}">{{ $product->manufacturer->name }}</a></li>
                         </ul>
                         <ul class="product-links">
-                            <li>Category:</li>
+                            <li>{{ __('pages.product.category') }}:</li>
                             <li><a href="{{ route('store', ['category' => $product->category->name]) }}">{{ $product->category->name }}</a></li>
                         </ul>
 
                         <ul class="product-links">
-                            <li>Share:</li>
+                            <li>{{ __('pages.product.share') }}:</li>
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -138,9 +144,9 @@
                     <div id="product-tab">
                         <!-- product tab nav -->
                         <ul class="tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-                            <li><a data-toggle="tab" href="#tab2">Details</a></li>
-                            <li><a data-toggle="tab" href="#tab3">Reviews ({{ $totalCommentCount }})</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab1">{{ __('pages.product.description') }}</a></li>
+                            <li><a data-toggle="tab" href="#tab2">{{ __('pages.product.details') }}</a></li>
+                            <li><a data-toggle="tab" href="#tab3">{{ __('pages.product.reviews') }} ({{ $totalCommentCount }})</a></li>
                         </ul>
                         <!-- /product tab nav -->
 
@@ -234,14 +240,16 @@
 
                 <div class="col-md-12">
                     <div class="section-title text-center">
-                        <h3 class="title">Related Products</h3>
+                        <h3 class="title">{{ __('pages.product.related_products') }}</h3>
                     </div>
                 </div>
-            @foreach($related_products as $product)
 
+                @foreach($related_products as $product)
                 <!-- product -->
                     <div class="col-md-3 col-xs-6">
-                        @include('components.product_tab')
+                        @component('components.product_tab', [
+                            'product' => $product
+                        ])@endcomponent
                     </div>
                     <!-- /product -->
                 @endforeach()

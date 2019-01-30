@@ -6,11 +6,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="newsletter">
-                    <p>Sign Up for the <strong>NEWSLETTER</strong></p>
+                    <p>{!! __('partials.newsletter.sing-up') !!}</p>
                     <form method="POST" action="{{ route('frontend.newsletter') }}">
                         {{ @csrf_field() }}
-                        <input class="input" type="email" placeholder="Enter Your Email" name="email">
-                        <button type="submit" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                        <input class="input" type="email" placeholder="{{ __('partials.newsletter.placeholder') }}" name="email">
+                        <button type="submit" class="newsletter-btn"><i class="fa fa-envelope"></i> {{ __('partials.newsletter.button') }}</button>
                     </form>
                     {{ menu('social.networks', 'components.menus.social_networks') }}
                 </div>

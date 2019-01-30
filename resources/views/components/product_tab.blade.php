@@ -16,7 +16,7 @@
     <div class="product-body">
         <p class="product-category">{{ $product->category->name }}</p>
 
-        <h3 class="product-name"><a href="{{ '/product/'.$product->id }}">{{ $product->name }}</a></h3>
+        <h3 class="product-name"><a href="{{ $product->getUrl() }}">{{ $product->get('name') }}</a></h3>
         @if(isset($product->discount->percent_off))
             <h4 class="product-price">${{ calculateDiscountPrice($product->price, $product->discount->percent_off) }} <del class="product-old-price">${{ $product->price }}</del></h4>
         @else
@@ -35,14 +35,14 @@
             @endfor
         </div>
         <div class="product-btns">
-            <button class="add-to-wishlist" onclick="document.getElementById('submit-wishlist').click()"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-            <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-            <button class="quick-view" onclick="window.location.href='{{ route('product', ['id' => $product->id]) }}'"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+            <button class="add-to-wishlist" onclick="document.getElementById('submit-wishlist').click()"><i class="fa fa-heart-o"></i><span class="tooltipp">{{ __('partials.product.add_to_wish_list') }}</span></button>
+            <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">{{ __('partials.product.add_to_compare') }}</span></button>
+            <button class="quick-view" onclick="window.location.href='{{ route('product', ['id' => $product->id]) }}'"><i class="fa fa-eye"></i><span class="tooltipp">{{ __('partials.product.quick_view') }}</span></button>
         </div>
     </div>
     <div class="add-to-cart">
         {{ Form::open(['method' => 'PUT', 'route' => ['cart.update', $product->id]]) }}
-        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> {{ __('partials.product.add_to_cart') }}</button>
         {{ Form::close() }}
     </div>
 </div>

@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-3 col-xs-6">
                     <div class="footer">
-                        <h3 class="footer-title">About Us</h3>
+                        <h3 class="footer-title">{{ __('partials.footer.about_us') }}</h3>
                         <p>{!! setting('site.about') !!}</p>
                         <ul class="footer-links">
                             <li><a href="#"><i class="fa fa-map-marker"></i>{{ setting('site.address') }}</a></li>

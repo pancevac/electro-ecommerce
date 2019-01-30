@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('title')
-    Home
-@endsection()
-
 @section('content')
 <!-- SECTION -->
 <div class="section">
@@ -21,8 +17,8 @@
                         <img src="./img/shop01.png" alt="">
                     </div>
                     <div class="shop-body">
-                        <h3>Laptop<br>Collection</h3>
-                        <a href="{{ route('store', ['category' => 'Laptops']) }}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                        {!! __('pages.home.laptop_collection') !!}
+                        <a href="{{ route('store', ['category' => 'Laptops']) }}" class="cta-btn">{{ __('pages.home.button2') }} <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -35,8 +31,8 @@
                         <img src="./img/shop03.png" alt="">
                     </div>
                     <div class="shop-body">
-                        <h3>Accessories<br>Collection</h3>
-                        <a href="{{ route('store', ['category' => 'Accessories']) }}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                        {!! __('pages.home.accessories_collection') !!}
+                        <a href="{{ route('store', ['category' => 'Accessories']) }}" class="cta-btn">{{ __('pages.home.button2') }} <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -49,8 +45,8 @@
                         <img src="./img/shop02.png" alt="">
                     </div>
                     <div class="shop-body">
-                        <h3>Cameras<br>Collection</h3>
-                        <a href="{{ route('store', ['category' => 'Cameras']) }}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                        {!! __('pages.home.cameras_collection') !!}
+                        <a href="{{ route('store', ['category' => 'Cameras']) }}" class="cta-btn">{{ __('pages.home.button2') }} <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -72,7 +68,7 @@
             <!-- section title -->
             <div class="col-md-12">
                 <div class="section-title">
-                    <h3 class="title">Featured</h3>
+                    <h3 class="title">{{ __('pages.home.featured') }}</h3>
                     {{ menu('section-nav', 'components.menus.section-nav') }}
                 </div>
             </div>
@@ -142,9 +138,9 @@
                             </div>
                         </li>
                     </ul>
-                    <h2 class="text-uppercase">hot deal this week</h2>
-                    <p>New Collection Up to 50% OFF</p>
-                    <a class="primary-btn cta-btn" href="#">Shop now</a>
+                    {!!  __('pages.home.desc1') !!}
+                    {!! __('pages.home.desc2') !!}
+                    <a class="primary-btn cta-btn" href="#">{{ __('pages.home.button') }}</a>
                 </div>
             </div>
         </div>
@@ -164,7 +160,7 @@
             <!-- section title -->
             <div class="col-md-12">
                 <div class="section-title">
-                    <h3 class="title">New Products</h3>
+                    <h3 class="title">{{ __('pages.home.new_products') }}</h3>
                     {{ menu('section-nav', 'components.menus.section-nav') }}
                 </div>
             </div>
@@ -207,7 +203,7 @@
         <div class="row">
             <div class="col-md-4 col-xs-6">
                 <div class="section-title">
-                    <h4 class="title">Top selling</h4>
+                    <h4 class="title">{{ __('pages.home.top_selling') }}</h4>
                     <div class="section-nav">
                         <div id="slick-nav-3" class="products-slick-nav"></div>
                     </div>
@@ -264,7 +260,7 @@
 
             <div class="col-md-4 col-xs-6">
                 <div class="section-title">
-                    <h4 class="title">Might Also Like</h4>
+                    <h4 class="title">{{ __('pages.home.might_also_like') }}</h4>
                     <div class="section-nav">
                         <div id="slick-nav-4" class="products-slick-nav"></div>
                     </div>
@@ -323,7 +319,7 @@
 
             <div class="col-md-4 col-xs-6">
                 <div class="section-title">
-                    <h4 class="title">Discount</h4>
+                    <h4 class="title">{{ __('pages.home.discount') }}</h4>
                     <div class="section-nav">
                         <div id="slick-nav-5" class="products-slick-nav"></div>
                     </div>

@@ -56,7 +56,7 @@
                     <div>
                         <a href="{{ route('wishlist.index') }}">
                             <i class="fa fa-heart-o"></i>
-                            <span>Your Wishlist</span>
+                            <span>{{ __('partials.header.wish_list') }}</span>
                             <div class="qty">{{ Cart::instance('wishlist')->count() }}</div>
                         </a>
                     </div>
@@ -66,7 +66,7 @@
                     <div class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                             <i class="fa fa-shopping-cart"></i>
-                            <span>Your Cart</span>
+                            <span>{{ __('partials.header.shopping_cart') }}</span>
                             <div class="qty">{{ Cart::instance('shopping')->count() }}</div>
                         </a>
                         <div class="cart-dropdown">
@@ -91,7 +91,7 @@
                                     @endforeach
 
                                 @else
-                                    <h5>No items selected! Your cart is empty!</h5>
+                                    <h5>{{ __('partials.header.shopping_cart_empty') }}</h5>
                                 @endif
 
                             </div>
