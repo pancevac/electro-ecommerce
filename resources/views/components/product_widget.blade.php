@@ -6,7 +6,7 @@
             </div>
             <div class="product-body">
                 <p class="product-category">{{ $top_sale->categoryName }}</p>
-                <h3 class="product-name"><a href="{{ route('product', ['id' => $top_sale->id]) }}">{{ $top_sale->name }}</a></h3>
+                <h3 class="product-name"><a href="{{ $top_sale->getUrl() }}">{{ $top_sale->name }}</a></h3>
                 @if(isset($top_sale->discount->percent_off))
                     <h4 class="product-price">${{ calculateDiscountPrice($top_sale->price, $top_sale->discount->percent_off) }} <del class="product-old-price">${{ $top_sale->price }}</del></h4>
                 @else

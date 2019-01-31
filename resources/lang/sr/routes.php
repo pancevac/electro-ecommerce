@@ -7,7 +7,7 @@
  */
 
 return [
-    'user' => [
+    'customer' => [
         'dashboard' => 'moj-nalog',
         'edit' => 'izmena-naloga',
         'update' => 'azuriranje-naloga',

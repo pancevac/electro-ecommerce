@@ -7,25 +7,6 @@
 @endsection()
 
 @section('content')
-{{--<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>--}}
 
     <div class="section">
         <div class="container">
@@ -35,31 +16,35 @@
 
 
                     <div class="section-title text-left">
-                        <h3 class="title">Profile Information</h3>
+                        <h3 class="title">{{ __('pages.profile.title') }}</h3>
                     </div>
                     <div class="order-summary">
                         <div class="order-col">
-                            <div><strong>Username:</strong></div>
+                            <div><strong>{{ __('pages.profile.username') }}:</strong></div>
                             <div>{{ $user->name }}</div>
                         </div>
                         <div class="order-col">
-                            <div><strong>Email:</strong></div>
+                            <div><strong>{{ __('pages.profile.email') }}:</strong></div>
                             <div>{{ $user->email }}</div>
                         </div>
                         <div class="order-col">
-                            <div><strong>Role:</strong></div>
+                            <div><strong>{{ __('pages.profile.role') }}:</strong></div>
                             <div>{{ $user->role->display_name }}</div>
                         </div>
                         <div class="order-col">
-                            <div><strong>Created:</strong></div>
+                            <div><strong>{{ __('pages.profile.created') }}:</strong></div>
                             <div>{{ $user->created_at }}</div>
                         </div>
                     </div>
                     <div class="input-checkbox col-md-6">
-                        <a href="{{ route('user.edit') }}" class="primary-btn order-submit" >Edit Profile</a>
+                        <a href="{{ route('user.edit') }}" class="primary-btn order-submit" >
+                            {{ __('pages.profile.button.edit_profile') }}
+                        </a>
                     </div>
                     <div class="input-checkbox col-md-6">
-                        <a href="{{ route('user.orders') }}" class="primary-btn order-submit" >Check Orders</a>
+                        <a href="{{ route('user.orders') }}" class="primary-btn order-submit" >
+                            {{ __('pages.profile.button.check_orders') }}
+                        </a>
                     </div>
 
 

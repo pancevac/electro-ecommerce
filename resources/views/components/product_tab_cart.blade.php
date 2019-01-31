@@ -20,7 +20,7 @@
     {{ Form::close() }}
     <div class="product-body">
         <p class="product-category">{{ $product->model->category->name }}</p>
-        <h3 class="product-name"><a href="{{ '/product/'.$product->id }}">@if($product->qty > 1) {{ $product->qty }}x @endif {{ $product->name }}</a></h3>
+        <h3 class="product-name"><a href="{{ $product->getUrl() }}">@if($product->qty > 1) {{ $product->qty }}x @endif {{ $product->name }}</a></h3>
         @if(isset($product->model->discount->percent_off))
             <h4 class="product-price">${{ calculateDiscountPrice($product->price, $product->model->discount->percent_off) }} <del class="product-old-price">${{ $product->price }}</del></h4>
         @else
