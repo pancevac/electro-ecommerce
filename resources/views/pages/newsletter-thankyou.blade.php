@@ -11,11 +11,10 @@
             <!-- row -->
 
             <div class="thank-you-section">
-                <h1>Thank you for <br> Your subscription!</h1>
-                <p>Your email address is successfully registered on Newsletter</p>
+                {{ __('pages.newsletter_thank_you.message') }}
                 <div class="spacer"></div>
                 <div>
-                    <a href="{{ url('/') }}" class="button">Home Page</a>
+                    <a href="{{ url('/') }}" class="button">{{ __('pages.newsletter_thank_you.button') }}</a>
                 </div>
             </div>
 

@@ -147,4 +147,16 @@ return [
         'shipped_yes' => 'Da',
         'shipped_no' => 'Ne',
     ],
+    'thank_you' => [
+        'title' => 'Hvala Vam',
+        'message' => '<h1>Hvala vam na kupovini!<br></h1>
+                <p>Email sa potvrdom porudžbine je poslat na vašu E-mail adresu.</p>',
+        'button' => 'Početna strana',
+    ],
+    'thank_you' => [
+        'title' => 'Newsletter',
+        'message' => '<h1>Uspešno ste se pretplatili na naš <br> Newsletter </h1>
+                <p>Email sa potvrdom je poslat na vašu E-mail adresu.</p>',
+        'button' => 'Početna strana',
+    ],
 ];

@@ -11,11 +11,10 @@
             <!-- row -->
 
             <div class="thank-you-section">
-                <h1>Thank you for <br> Your Order!</h1>
-                <p>A confirmation email was sent</p>
+                {{ __('pages.thank_you.message') }}
                 <div class="spacer"></div>
                 <div>
-                    <a href="{{ url('/') }}" class="button">Home Page</a>
+                    <a href="{{ url('/') }}" class="button">{{ __('pages.thank_you.button') }}</a>
                 </div>
             </div>
 

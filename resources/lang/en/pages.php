@@ -147,4 +147,16 @@ return [
         'shipped_yes' => 'Yes',
         'shipped_no' => 'No',
     ],
+    'thank_you' => [
+        'title' => 'Thank You',
+        'message' => '<h1>Thank you for <br> Your Order!</h1>
+                <p>A confirmation email was sent</p>',
+        'button' => 'Home page',
+    ],
+    'newsletter_thank_you' => [
+        'title' => 'Thank You',
+        'message' => '<h1>Thank you for <br> Your subscription!</h1>
+                <p>Your email address is successfully registered on Newsletter</p>',
+        'button' => 'Home page',
+    ],
 ];
