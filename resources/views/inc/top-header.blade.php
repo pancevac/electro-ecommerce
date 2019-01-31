@@ -10,8 +10,8 @@
             <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
 
             @guest
-                <li><a href="{{ route('login') }}"><i class="fa fa-user-o"></i> Login</a></li>
-                <li><a href="{{ route('register') }}"><i class="fa fa-user-o"></i> Register</a></li>
+                <li><a href="{{ route('login') }}"><i class="fa fa-user-o"></i> {{ __('partials.header.login') }}</a></li>
+                <li><a href="{{ route('register') }}"><i class="fa fa-user-o"></i> {{ __('partials.header.register') }}</a></li>
                 {{--<li><a href="{{ route('login') }}"><i class="fa fa-user-o"></i> My Account</a></li>--}}
             @else
                 <li><a href="{{ route('dashboard') }}"><i class="fa fa-user-o"></i> {{ ucfirst(Auth::user()->name) }}</a></li>

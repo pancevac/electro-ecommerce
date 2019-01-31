@@ -10,7 +10,14 @@ return [
     'header' => [
         'wish_list' => 'Your Wishlist',
         'shopping_cart' => 'Your Cart',
+        'shopping_cart_view' => 'View Cart',
         'shopping_cart_empty' => 'No items selected! Your cart is empty!',
+        'login' => 'Login',
+        'logout' => 'Logout',
+        'register' => 'Register',
+        'checkout' => 'Checkout',
+        'subtotal' => 'Subtotal',
+        'item_selected' => '{1} item selected|[2,*] items selected',
     ],
     'footer' => [
         'about_us' => 'About us',

@@ -10,7 +10,14 @@ return [
     'header' => [
         'wish_list' => 'Lista želja',
         'shopping_cart' => 'Korpa',
+        'shopping_cart_view' => 'Pregledaj korpu',
         'shopping_cart_empty' => 'Vaša korpa je prazna!',
+        'login' => 'Prijava',
+        'logout' => 'Odjava',
+        'register' => 'Registracija',
+        'checkout' => 'Checkout',
+        'subtotal' => 'Ukupno',
+        'item_selected' => '{1} proizvod dodat|[2,*] proizvoda dodato',
     ],
     'footer' => [
         'about_us' => 'O nama',

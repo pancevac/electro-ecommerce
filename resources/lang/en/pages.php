@@ -21,6 +21,21 @@ return [
         'brand' => 'Brand',
         'category' => 'Category',
         'share' => 'Share',
+
+        'rating' => [
+            'average_rating' => 'Average rating',
+        ],
+        'comments' => [
+            'no_comment' => 'No comments! Be first to leave one.',
+        ],
+        'comment_form' => [
+            'your_rating' => 'Your rating',
+            'placeholder' => 'Leave a comment',
+            'button' => 'Submit',
+            'please' => 'Please',
+            'login_link' => 'login',
+            'rest' => 'to make reviews!',
+        ],
     ],
 
     'home' => [

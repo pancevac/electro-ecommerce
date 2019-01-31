@@ -97,12 +97,14 @@
                             </div>
                             @if(Cart::instance('shopping')->count())
                                 <div class="cart-summary">
-                                    <small>{{ Cart::instance('shopping')->count() }} Item(s) selected</small>
-                                    <h5>SUBTOTAL: ${{ Cart::instance('shopping')->subtotal() }}</h5>
+                                    <small>{{ Cart::instance('shopping')->count() }}
+                                        {{ trans_choice('partials.header.item_selected', Cart::instance('shopping')->count()) }}
+                                    </small>
+                                    <h5>{{ __('partials.header.subtotal') }}: ${{ Cart::instance('shopping')->subtotal() }}</h5>
                                 </div>
                                 <div class="cart-btns">
-                                    <a href="{{ route('cart.index') }}">View Cart</a>
-                                    <a href="{{ route('checkout.index') }}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="{{ route('cart.index') }}">{{ __('partials.header.shopping_cart_view') }}</a>
+                                    <a href="{{ route('checkout.index') }}">{{ __('partials.header.checkout') }} <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             @endif
                         </div>

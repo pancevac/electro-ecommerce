@@ -198,7 +198,7 @@ class FrontendController extends Controller
             'products' => $products,
             'categories' => $categories,
             'brands' => $brands,
-            'top_sales' => OrderProduct::get_top_sales(5),
+            'top_sales' => dd(OrderProduct::get_top_sales(5)),
         ]);
     }
 

@@ -21,6 +21,21 @@ return [
         'brand' => 'Brend',
         'category' => 'Kategorija',
         'share' => 'Podeli',
+
+        'rating' => [
+            'average_rating' => 'Srednja ocena',
+        ],
+        'comments' => [
+            'no_comment' => 'Nema komentara! Budite prvi koji ćete da komentarišete!',
+        ],
+        'comment_form' => [
+            'your_rating' => 'Vaša ocena',
+            'placeholder' => 'Ostavite komentar',
+            'button' => 'Pošalji',
+            'please' => 'Molimo Vas',
+            'login_link' => 'ulogujte se',
+            'rest' => 'kako biste ostavili komentar!',
+        ],
     ],
 
     'home' => [

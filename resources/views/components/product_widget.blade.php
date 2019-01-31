@@ -5,6 +5,7 @@
                 <img src="{{ productImage($top_sale->image) }}" alt="">
             </div>
             <div class="product-body">
+                {{ dd($top_sale) }}
                 <p class="product-category">{{ $top_sale->categoryName }}</p>
                 <h3 class="product-name"><a href="{{ $top_sale->getUrl() }}">{{ $top_sale->name }}</a></h3>
                 @if(isset($top_sale->discount->percent_off))
