@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-    @include('inc.head')
+
+@include('inc.head')
+
 <body>
-<!-- HEADER -->
-<header>
+<div id="app">
+
+  <!-- HEADER -->
+  <header>
 
     @include('inc.top-header')
     @include('inc.main-header')
 
-</header>
-<!-- /HEADER -->
+  </header>
+  <!-- /HEADER -->
 
-@include('inc.navigation')
+  @include('inc.navigation')
 
-@yield('breadcrumbs')
+  @yield('breadcrumbs')
 
-@include('inc.messages')
+  @include('inc.messages')
 
-@yield('content')
+  @yield('content')
 
-@include('inc.newsletter')
+  @include('inc.newsletter')
 
-@include('inc.footer')
+  @include('inc.footer')
+
+</div>
+
+<script>
+  window.app_url = "{{ url('/') }}";
+</script>
+
+<script src="{{ asset('js/app.js') }}"></script>
 
 @include('inc.script')
 
