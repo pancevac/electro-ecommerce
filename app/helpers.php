@@ -21,3 +21,95 @@ function newProducts($time)
         return true;
     }
 }
+
+if (! function_exists('getLocalizedURL')) {
+    /**
+     * Helper for generating localized URLs
+     *
+     * @param $url
+     * @param array $attributes
+     * @return mixed
+     */
+    function getLocalizedURL($url, $attributes = []) {
+
+        return \LaravelLocalization::getLocalizedURL(
+            \LaravelLocalization::getCurrentLocale(),
+            $url, // URL
+            $attributes // Attributes for the url
+        );
+    }
+}
+
+if (! function_exists('getLocalizedRoute')) {
+    /**
+     * Helper for generating localized routes
+     *
+     * @param $routeTransKey
+     * @param array $attributes
+     * @return mixed
+     */
+    function getLocalizedRoute($routeTransKey, $attributes = []) {
+
+        return \LaravelLocalization::getURLFromRouteNameTranslated(
+            \LaravelLocalization::getCurrentLocale(),
+            $routeTransKey, // route trans key from  "resource/lang/[language]/routes"
+            $attributes // Attributes for the route
+        );
+    }
+}
+
+if (! function_exists('isLocalizedRoute')) {
+    /**
+     * Check if requested route match current route
+     *
+     * @param $routeTransKey    // route trans key from  "resource/lang/[language]/routes"
+     * @return bool
+     */
+    function isLocalizedRoute($routeTransKey) {
+
+        return request()->url() === getLocalizedRoute($routeTransKey);
+    }
+}
+
+if (! function_exists('getCartItems')) {
+    /**
+     * Get list of cart items
+     *
+     * @param bool $asJon
+     * @return array|mixed|string
+     */
+    function getCartItems($asJon = false) {
+        return app('cartExtended')->getCartItems($asJon);
+    }
+}
+if (! function_exists('getCartItems')) {
+    /**
+     * Return number of items in cart
+     *
+     * @return mixed
+     */
+    function getCartCount() {
+        return app('cartExtended')->getCartCount();
+    }
+}
+
+if (! function_exists('getCartItems')) {
+    /**
+     * Get the total price (calculated discounts) of the items in the cart.
+     *
+     * @param bool $format
+     * @return mixed
+     */
+    function getTotalPrice($format = false) {
+        return app('cartExtended')->getTotalPrice($format);
+    }
+}
+
+if (! function_exists('getMinutesToTheNextHour')) {
+
+    function getMinutesToTheNextHour() {
+
+        return 0;
+        //return Carbon::now()->diffInMinutes(Carbon::now()->addHour()->format('Y-m-d H:00:00'));
+    }
+}

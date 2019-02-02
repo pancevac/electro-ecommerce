@@ -153,6 +153,7 @@ return [
          * Package Service Providers...
          */
         Collective\Html\HtmlServiceProvider::class,
+        App\Providers\CartProvider::class,
 
         /*
          * Application Service Providers...
