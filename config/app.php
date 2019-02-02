@@ -154,6 +154,7 @@ return [
          */
         Collective\Html\HtmlServiceProvider::class,
         App\Providers\CartProvider::class,
+        MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
 
         /*
          * Application Service Providers...
