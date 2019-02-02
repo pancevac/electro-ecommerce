@@ -15,7 +15,8 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('cart-holder', require('./components/CartHolder.vue'));
+Vue.component('cart-loader', require('./components/CartLoader.vue'));
+Vue.component('cart-drop-menu', require('./components/CartDropMenu.vue'));
 Vue.component('cart-add', require('./components/CartAdd.vue'));
 Vue.component('cart-add-multiple', require('./components/CartAddMultple.vue'));
 Vue.component('cart-remove', require('./components/CartRemove.vue'));

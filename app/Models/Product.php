@@ -107,6 +107,16 @@ class Product extends Model implements Buyable
     }
 
     /**
+     * Get image for vue.
+     *
+     * @return string
+     */
+    public function getImageVueAttribute()
+    {
+        return productImage($this->image);
+    }
+
+    /**
      * Returns discounted price if there is discount, otherwise, return original price
      *
      * @return float
