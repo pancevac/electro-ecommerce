@@ -10,9 +10,7 @@
             @endif
         </div>
     </div>
-    {{ Form::open(['method' => 'PUT', 'route' => ['wishlist.update', $product->id]]) }}
-    <button id="submit-wishlist" type="submit" style="display:none"></button>
-    {{ Form::close() }}
+
     <div class="product-body">
         <p class="product-category">{{ $product->category->name }}</p>
 
@@ -35,7 +33,12 @@
             @endfor
         </div>
         <div class="product-btns">
-            <button class="add-to-wishlist" onclick="document.getElementById('submit-wishlist').click()"><i class="fa fa-heart-o"></i><span class="tooltipp">{{ __('partials.product.add_to_wish_list') }}</span></button>
+
+            <wish-list-add
+                link="{{ route('wishlist.store') }}"
+                product-code="{{ $product->code }}"
+            ></wish-list-add>
+
             <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">{{ __('partials.product.add_to_compare') }}</span></button>
             <button class="quick-view" onclick="window.location.href='{{ route('product', ['id' => $product->id]) }}'"><i class="fa fa-eye"></i><span class="tooltipp">{{ __('partials.product.quick_view') }}</span></button>
         </div>
