@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\HasBuyable;
+use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Laravel\Scout\Searchable;
@@ -9,11 +11,12 @@ use Illuminate\Database\Eloquent\Model;
 use Actuallymab\LaravelComment\Commentable;
 use TCG\Voyager\Traits\Translatable;
 
-class Product extends Model
+class Product extends Model implements Buyable
 {
     use Commentable;
     //use Searchable;
     use Translatable;
+    use HasBuyable;
 
     // Comment setting
     protected $mustBeApproved = true;
@@ -91,6 +94,46 @@ class Product extends Model
     public function getUrl()
     {
         return route('product', ['product' => $this->id]);
+    }
+
+    /**
+     * Return link flag
+     *
+     * @return string
+     */
+    public function getLinkAttribute()
+    {
+        return $this->getUrl();
+    }
+
+    /**
+     * Returns discounted price if there is discount, otherwise, return original price
+     *
+     * @return float|int|mixed
+     */
+    public function getDiscountedPriceAttribute()
+    {
+        return $this->price - (($this->discount->percent_off / 100) * $this->price);
+    }
+
+    /**
+     * Return true if product has discount
+     *
+     * @return bool
+     */
+    public function hasDiscount()
+    {
+        return $this->discount->percent_off ? true : false;
+    }
+
+    /**
+     * Return true if product is in stock
+     *
+     * @return bool
+     */
+    public function isInStock()
+    {
+        return $this->stock;
     }
 
     public function store()
