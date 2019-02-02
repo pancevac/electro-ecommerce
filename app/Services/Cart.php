@@ -33,7 +33,9 @@ class Cart
         'publish',
         'created_at',
         'updated_at',
-        'translations'
+        'translations',
+        'category_id',
+        'manufacturer_id',
     ];
 
     public function init()
@@ -45,7 +47,8 @@ class Cart
 
         // Get associated products, append product link and hide useless properties
         // We do this because products are not eager-loaded in shopping cart
-        $products = Product::whereIn('id', $content->pluck('id'))
+        $products = Product::with(['category', 'discount', 'comments'])
+            ->whereIn('id', $content->pluck('id'))
             ->get()->each
             ->setAppends(['link'])
             ->makeHidden($this->hiddenProductAttributes);
@@ -59,10 +62,13 @@ class Cart
             // Get product from eager loaded products collection
             $product = $products->where('id', $item->id)->first();
 
-            $cartItemsWithModel[$rowId]                                 = get_object_vars($item);
-            $cartItemsWithModel[$rowId]['price_formatted']              = $product->getBuyablePrice();    // TODO umotati u currency po zavrsetku
-            $cartItemsWithModel[$rowId]['price_plus_qty_formatted']     = $product->getBuyablePrice() * $cartItemsWithModel[$rowId]['qty'];
-            $cartItemsWithModel[$rowId]['model']                        = $product;
+            $cartItem                           = get_object_vars($item);
+            $cartItem['priceFormatted']         = $product->getBuyablePrice();    // TODO umotati u currency po zavrsetku
+            $cartItem['pricePlusQtyFormatted']  = $product->getBuyablePrice() * $cartItem['qty'];
+            $cartItem['model']                  = $product;
+
+            // after adding additional "fields" on cart item, transform item array into item object
+            $cartItemsWithModel[$rowId] = (object) $cartItem;
         }
 
         $this->items = $cartItemsWithModel;
@@ -103,6 +109,30 @@ class Cart
         }, 0);
 
         //return $format ? currency($total) : $total;
+    }
+
+    /**
+     * Return refreshed cart status as JSON
+     *
+     * @param string $withMessage
+     * @param bool $asJson
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCartStatus(string $withMessage, bool $asJson = true)
+    {
+        // Init(refresh) cart state before returning status
+        $this->init();
+
+        return response()->json([
+            'message' => $withMessage,
+            'cartItems' => $this->getCartItems(),
+            'cartItemsCount' => $this->getCartCount(),
+            //'subtotalPrice' => $this->getSubtotalPrice(true),
+            'totalPrice' => $this->getTotalPrice(true),
+            //'discount' => $this->calculateTotalDiscount(true),
+            /* 'totalPrice' => self::calculateTotalPrice(),
+             'coupon' => self::getCheckedCoupon(),*/
+        ]);
     }
 
 }

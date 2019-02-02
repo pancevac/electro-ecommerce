@@ -2,12 +2,12 @@
     <div class="product-img">
         <img src="{{ productImage($product->image) }}" alt="">
         <div class="product-label">
-            @if(isset($product->discount->percent_off))
+            @if($product->hasDiscount())
                 <span class="sale">-{{ $product->discount->percent_off }}%</span>
             @endif
-                @if(newProducts($product->created_at))
-                    <span class="new">{{ __('partials.product.new') }}</span>
-                @endif
+            @if(newProducts($product->created_at))
+                <span class="new">{{ __('partials.product.new') }}</span>
+            @endif
         </div>
     </div>
     {{ Form::open(['method' => 'PUT', 'route' => ['wishlist.update', $product->id]]) }}
@@ -17,8 +17,8 @@
         <p class="product-category">{{ $product->category->name }}</p>
 
         <h3 class="product-name"><a href="{{ $product->getUrl() }}">{{ $product->get('name') }}</a></h3>
-        @if(isset($product->discount->percent_off))
-            <h4 class="product-price">${{ calculateDiscountPrice($product->price, $product->discount->percent_off) }} <del class="product-old-price">${{ $product->price }}</del></h4>
+        @if($product->hasDiscount())
+            <h4 class="product-price">${{ $product->discountedPrice }} <del class="product-old-price">${{ $product->price }}</del></h4>
         @else
             <h4 class="product-price">${{ $product->price }}</h4>
         @endif
@@ -40,9 +40,8 @@
             <button class="quick-view" onclick="window.location.href='{{ route('product', ['id' => $product->id]) }}'"><i class="fa fa-eye"></i><span class="tooltipp">{{ __('partials.product.quick_view') }}</span></button>
         </div>
     </div>
-    <div class="add-to-cart">
-        {{ Form::open(['method' => 'PUT', 'route' => ['cart.update', $product->id]]) }}
-        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> {{ __('partials.product.add_to_cart') }}</button>
-        {{ Form::close() }}
-    </div>
+    <cart-add
+        product-code="{{ $product->code }}"
+        link="{{ route('cart.store') }}"
+    ></cart-add>
 </div>

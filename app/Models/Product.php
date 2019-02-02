@@ -79,7 +79,7 @@ class Product extends Model implements Buyable
      * Get translatable attribute
      *
      * @param $attribute
-     * @return null
+     * @return string
      */
     public function get($attribute)
     {
@@ -109,11 +109,13 @@ class Product extends Model implements Buyable
     /**
      * Returns discounted price if there is discount, otherwise, return original price
      *
-     * @return float|int|mixed
+     * @return float
      */
     public function getDiscountedPriceAttribute()
     {
-        return $this->price - (($this->discount->percent_off / 100) * $this->price);
+        return $this->hasDiscount() ?
+            $this->price - (($this->discount->percent_off / 100) * $this->price) :
+            $this->price;
     }
 
     /**
@@ -123,7 +125,11 @@ class Product extends Model implements Buyable
      */
     public function hasDiscount()
     {
-        return $this->discount->percent_off ? true : false;
+        if (! $this->relationLoaded('discount')) {
+            $this->load('discount');
+        }
+
+        return isset($this->discount->percent_off) && $this->discount->percent_off ? true : false;
     }
 
     /**

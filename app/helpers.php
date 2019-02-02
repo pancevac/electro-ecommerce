@@ -82,7 +82,19 @@ if (! function_exists('getCartItems')) {
         return app('cartExtended')->getCartItems($asJon);
     }
 }
-if (! function_exists('getCartItems')) {
+
+if (! function_exists('getCartStatus')) {
+    /**
+     * @param $withMessage
+     * @param bool $asJson
+     * @return \Illuminate\Http\JsonResponse|array
+     */
+    function getCartStatus($withMessage, $asJson = true) {
+        return app('cartExtended')->getCartStatus($withMessage, $asJson);
+    }
+}
+
+if (! function_exists('getCartCount')) {
     /**
      * Return number of items in cart
      *
@@ -93,7 +105,7 @@ if (! function_exists('getCartItems')) {
     }
 }
 
-if (! function_exists('getCartItems')) {
+if (! function_exists('getTotalPrice')) {
     /**
      * Get the total price (calculated discounts) of the items in the cart.
      *
