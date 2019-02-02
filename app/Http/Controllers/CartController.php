@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddToCartRequest;
+use App\Http\Requests\UpdateInCartRequest;
 use App\Models\Product;
+use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
@@ -15,9 +18,9 @@ class CartController extends Controller
      */
     public function index()
     {
-        $products = Cart::instance('shopping')->content();
+        $cartItems = getCartItems();
 
-        return view('pages.cart')->with('products', $products);
+        return view('pages.cart')->with('cartItems', $cartItems);
     }
 
     /**
@@ -33,12 +36,29 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param AddToCartRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(AddToCartRequest $request)
     {
-        //
+        // Set locale
+        app()->setLocale($request->get('locale', 'en'));
+
+        // Get product which we want to store to cart
+        $product = Product::with('discount')
+            ->where('code', $request->input('product_code'))
+            ->first();
+
+        if (!$product) {
+            return response()->json([
+                'message' => trans('messages.cart.unknown_product'),
+            ], 403);
+        }
+
+        // Add product to shopping cart
+        \Cart::instance('shopping')->add($product, $request->input('quantity', 1));
+
+        return getCartStatus(trans('messages.cart.added'));
     }
 
     /**
@@ -66,33 +86,49 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateInCartRequest $request
+     * @param $rowId
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateInCartRequest $request, $rowId)
     {
-        $product = Product::find($id);
-        Cart::instance('shopping')->add([
-            'id' => $product->id,
-            'name' => $product->name,
-            'qty' => $request->has('qty') ? $request->qty : 1,
-            'price' => isset($product->discount->percent_off) ? calculateDiscountPrice($product->price, $product->discount->percent_off): $product->price,
+        // Set locale
+        app()->setLocale($request->get('locale', 'en'));
 
-        ])->associate(\App\Models\Product::class);
+        try {
+            // Update product quantity
+            \Cart::instance('shopping_cart')->update($rowId, $request->input('quantity'));
+        }
+        // Catch exception when RowId is invalid and return message
+        catch (InvalidRowIDException $e) {
 
-        return back()->with('success', 'Item added to cart!');
+            return response()->json([
+                'message' => trans('messages.cart.unknown_product'),
+            ], 403);
+        }
+
+        return getCartStatus(trans('messages.cart.updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param $rowId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($rowId)
     {
-        Cart::instance('shopping')->remove($id);
-        return back()->with('success', 'Item successfully removed from cart!');
+        try {
+            Cart::instance('shopping')->remove($rowId);
+        }
+        // Catch exception when RowId is invalid and return message
+        catch (InvalidRowIDException $e) {
+
+            return response()->json([
+                'message' => trans('messages.cart.unknown_product'),
+            ], 403);
+        }
+
+        return getCartStatus(trans('messages.cart.deleted'));
     }
 }

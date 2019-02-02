@@ -43,8 +43,9 @@ Route::group([
 
 // Cart
 Route::get('cart', 'CartController@index')->name('cart.index');
-Route::put('cart/{id}', 'CartController@update')->name('cart.update');
-Route::delete('cart/{id}', 'CartController@destroy')->name('cart.destroy');
+Route::post('cart', 'CartController@store')->name('cart.store');
+Route::put('cart/{rowId}', 'CartController@update')->name('cart.update');
+Route::delete('cart/{rowId}', 'CartController@destroy')->name('cart.destroy');
 
 // Wish list
 /*Route::get('wishlist/create', 'WishlistController@create')->name('wishlist.create')->middleware('auth');
@@ -52,7 +53,7 @@ Route::get('wishlist', 'WishlistController@index')->name('wishlist.index')->midd
 Route::post('wishlist', 'WishlistController@store')->name('wishlist.store')->middleware('auth');
 Route::put('wishlist/{id}', 'WishlistController@update')->name('wishlist.update')->middleware('auth');
 Route::delete('wishlist/{id}', 'WishlistController@destroy')->name('wishlist.destroy')->middleware('auth');*/
-Route::resource('wishlist', 'WishlistController')->middleware('auth');
+Route::apiResource('wishlist', 'WishlistController')->middleware('auth');
 
 // Comment handler
 Route::put('product/{coupon}', [
