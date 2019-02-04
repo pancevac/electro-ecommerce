@@ -39,12 +39,12 @@
     @endif
 
     <div class="product-rating">
-      @for($i = 0; $i < round($item->model->averageRate()); $i++)
+      @for($i = 0; $i < round($item->model->averageRate); $i++)
 
         <i class="fa fa-star"></i>
 
       @endfor
-      @for($i = 0; $i < 5 - round($item->model->averageRate()); $i++)
+      @for($i = 0; $i < 5 - round($item->model->averageRate); $i++)
 
         <i class="fa fa-star-o"></i>
 

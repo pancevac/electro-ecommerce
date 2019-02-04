@@ -21,12 +21,12 @@
             <h4 class="product-price">${{ $product->price }}</h4>
         @endif
         <div class="product-rating">
-            @for($i = 0; $i < round($product->averageProductRate); $i++)
+            @for($i = 0; $i < round($product->averageRate); $i++)
 
                 <i class="fa fa-star"></i>
 
             @endfor
-            @for($i = 0; $i < 5 - round($product->averageProductRate); $i++)
+            @for($i = 0; $i < 5 - round($product->averageRate); $i++)
 
                 <i class="fa fa-star-o"></i>
 
