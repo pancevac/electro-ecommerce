@@ -27,7 +27,7 @@ class Product extends Model implements Buyable
      *
      * @var array
      */
-    protected $with = ['translations'];
+    //protected $with = ['translations'];
 
     /**
      * Translatable attributes
@@ -70,9 +70,10 @@ class Product extends Model implements Buyable
         return $this->belongsToMany('App\Models\Order')->withPivot('quantity', 'price', 'percent_off');
     }
 
-    public function might_also_like($limit)
+    public function mightAlsoLike($limit)
     {
-        return $this->with(['category', 'discount', 'comments'])->inRandomOrder()->take($limit)->get();
+        return $this->with(['translations', 'category', 'discount', 'comments'])
+            ->inRandomOrder()->take($limit)->get();
     }
 
     /**
@@ -129,6 +130,30 @@ class Product extends Model implements Buyable
     }
 
     /**
+     * Get product total comments count flag
+     *
+     * @return int
+     */
+    public function getTotalCommentCountAttribute()
+    {
+        return ($this->mustBeApproved()) ?
+            $this->comments->where('approved', true)->count() :
+            $this->comments->count();
+    }
+
+    /**
+     * Get product average rate flag
+     *
+     * @return float|int
+     */
+    public function getAverageRateAttribute()
+    {
+        return ($this->getCanBeRated()) ?
+            $this->comments->where('approved', true)->avg('rate') :
+            0;
+    }
+
+    /**
      * Return true if product has discount
      *
      * @return bool
@@ -172,36 +197,16 @@ class Product extends Model implements Buyable
         return $record;
     }
 
-    public function getAverageRate($products)
+    public function getRelatedProducts()
     {
-        if ($products instanceof Collection) {
-
-            foreach ($products as $product) {
-                $product->averageProductRate = $product->comments->avg('rate');
-            }
-        }
-        else {
-            $products->averageProductRate = $products->comments->avg('rate');
-        }
-
-        return $products;
-    }
-
-    public function getRelatedProducts($product)
-    {
-        return $this->with(['category', 'comments', 'discount'])->whereHas('category', function($category) use ($product) {
-            $category->where('id', $product->category->id);
+        return $this->with(['translations', 'category', 'comments', 'discount'])
+            ->whereHas('category', function($category) {
+            $category->where('id', $this->category->id);
         })
-            ->where('id', '<>', $product->id)
+            ->where('id', '<>', $this->id)
             ->inRandomOrder()
             ->take(4)
             ->get();
-    }
-
-    public function getTotalComments($product)
-    {
-        $product->totalCommentsCount = $product->comments->count();
-        return $product;
     }
 
 }

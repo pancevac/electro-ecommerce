@@ -10,7 +10,7 @@ class OrderProduct extends Model
 
     protected $fillable = array('order_id', 'product_id', 'quantity', 'price', 'percent_off');
 
-    public static function get_top_sales($limit)
+    public static function getTopSales($limit)
     {
         return \DB::table('order_product')
             ->select('products.*', 'percent_off AS percentOff', 'category.name AS categoryName', 'category.id as CategoryId', \DB::raw('COUNT(order_product.product_id) AS product_count'))

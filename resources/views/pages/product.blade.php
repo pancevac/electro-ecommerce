@@ -51,21 +51,21 @@
             <div>
               <div class="product-rating">
                 @php
-                  $averageRate = $product->averageProductRate;
+                  $averageRate = $product->averageRate;
                 @endphp
-                @for($i = 0; $i < round($product->averageProductRate); $i++)
+                @for($i = 0; $i < round($product->averageRate); $i++)
 
                   <i class="fa fa-star"></i>
 
                 @endfor
-                @for($i = 0; $i < 5 - round($product->averageProductRate); $i++)
+                @for($i = 0; $i < 5 - round($product->averageRate); $i++)
 
                   <i class="fa fa-star-o"></i>
 
                 @endfor
               </div>
               @php
-                $totalCommentCount = $product->totalCommentsCount
+                $totalCommentCount = $product->totalCommentCount
               @endphp
               <a class="review-link" href="#tab3">{{ $totalCommentCount }} {{ __('pages.product.reviews_status') }}</a>
             </div>
