@@ -26,7 +26,10 @@
 
                   @foreach($cartItems as $item)
 
-                    @include('components.product_tab_cart')
+                    @component('components.product_tab_cart', [
+                      'item' => $item,
+                    ])
+                    @endcomponent
 
                   @endforeach()
 

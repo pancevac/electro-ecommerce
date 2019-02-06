@@ -29,12 +29,14 @@
           .then(response => {
             this.$toasted.global.toastSuccess({ message: response.data.message });
 
-            // Sync shopping cart state
+            //window.location.reload();
+
+            /*// Sync shopping cart state
             this.$store.dispatch('changeCartItems', response.data.cartItems);
             this.$store.dispatch('changeItemCount', response.data.cartItemsCount);
             //this.$store.dispatch('changeSubtotalPrice', response.data.subtotalPrice);
             this.$store.dispatch('changeTotalPrice', response.data.totalPrice);
-            //this.$store.dispatch('changeDiscount', response.data.discount);
+            //this.$store.dispatch('changeDiscount', response.data.discount);*/
 
           })
           .catch(e => {

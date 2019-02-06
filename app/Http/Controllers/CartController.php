@@ -124,11 +124,9 @@ class CartController extends Controller
         // Catch exception when RowId is invalid and return message
         catch (InvalidRowIDException $e) {
 
-            return response()->json([
-                'message' => trans('messages.cart.unknown_product'),
-            ], 403);
+            return back()->with('error', trans('messages.cart.unknown_product'));
         }
 
-        return getCartStatus(trans('messages.cart.deleted'));
+        return back()->with('success', trans('messages.cart.deleted'));
     }
 }

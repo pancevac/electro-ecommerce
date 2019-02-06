@@ -8,16 +8,18 @@
       @if($item->qty > 1)
         <span class="new">{{ $item->qty }}x</span>
       @endif
-      <span class="new">{{ __('partials.product.new') }}</span>
+        @if(newProducts($item->model->created_at))
+          <span class="new">{{ __('partials.product.new') }}</span>
+        @endif
 
-      <cart-remove
-        link="{{ route('cart.destroy', ['rowId' => $item->rowId]) }}"
-      ></cart-remove>
+        <a href="#" onclick="document.getElementById('form_cart_del_{{ $item->rowId }}').submit()">
+          <i class="fa fa-close" type="submit"></i>
+        </a>
 
     </div>
   </div>
-  {{ Form::open(['method' => 'PUT', 'route' => ['wishlist.update', $item->id]]) }}
-  <button id="submit-wishlist" type="submit" style="display:none"></button>
+
+  {{ Form::open(['method' => 'delete', 'id' => "form_cart_del_$item->rowId", 'route' => ['cart.destroy', $item->rowId]]) }}
   {{ Form::close() }}
 
   <div class="product-body">
