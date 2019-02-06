@@ -33,11 +33,11 @@
     </h3>
 
     @if($item->model->hasDiscount())
-      <h4 class="product-price">${{ $item->model->discountedPrice }}
-        <del class="product-old-price">${{ $item->model->price }}</del>
+      <h4 class="product-price">{{ currency($item->model->discountedPrice) }}
+        <del class="product-old-price">{{ currency($item->model->price) }}</del>
       </h4>
     @else
-      <h4 class="product-price">${{ $item->model->price }}</h4>
+      <h4 class="product-price">{{ currency($item->model->price) }}</h4>
     @endif
 
     <div class="product-rating">

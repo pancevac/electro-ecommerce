@@ -53,7 +53,7 @@ class Cart
             ->setAppends(['link', 'imageVue'])
             ->makeHidden($this->hiddenProductAttributes);
 
-        foreach ($content as $rowId => $item) {
+        $this->items = $content->map(function ($item, $rowId) use ($products) {
             // Convert each item object's properties as array
             // We do this cuz shopping-cart package override laravel's toArray() method which remove associated model.
             // We bypass this with transforming item object properties into array.
@@ -63,15 +63,13 @@ class Cart
             $product = $products->where('id', $item->id)->first();
 
             $cartItem                           = get_object_vars($item);
-            $cartItem['priceFormatted']         = $product->getBuyablePrice();    // TODO umotati u currency po zavrsetku
-            $cartItem['pricePlusQtyFormatted']  = $product->getBuyablePrice() * $cartItem['qty'];
+            $cartItem['priceFormatted']         = currency($product->getBuyablePrice());
+            $cartItem['pricePlusQtyFormatted']  = currency($product->getBuyablePrice() * $cartItem['qty']);
             $cartItem['model']                  = $product;
 
             // after adding additional "fields" on cart item, transform item array into item object
-            $cartItemsWithModel[$rowId] = (object) $cartItem;
-        }
-
-        $this->items = $cartItemsWithModel;
+            return (object) $cartItem;
+        });
 
     }
 
@@ -104,11 +102,11 @@ class Cart
      */
     public function getTotalPrice(bool $format = false)
     {
-        return array_reduce($this->getCartItems(), function ($cartItemTotal, $cartItem) {
-            return $cartItemTotal + $cartItem->price; // TODO odraditi ovde neko dodatno racunanje ako treba
+        $total = $this->getCartItems()->reduce(function ($cartItemTotal, $cartItem) {
+            return $cartItemTotal + $cartItem->price;
         }, 0);
 
-        //return $format ? currency($total) : $total;
+        return $format ? currency($total) : $total;
     }
 
     /**

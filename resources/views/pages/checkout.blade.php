@@ -141,7 +141,7 @@
                     @endif
                     {{ $cartItem->name }}
                   </div>
-                  <div>${{ $cartItem->price }}</div>
+                  <div>{{ currency($cartItem->price) }}</div>
                 </div>
               @endforeach()
 
@@ -150,7 +150,7 @@
             <div class="order-col">
               <div>{{ __('pages.checkout.subtotal') }}</div>
               <div @if(session()->has('coupon')) style="text-decoration: line-through;"@endif>
-                ${{ Cart::instance('shopping')->subtotal() }}</div>
+                {{ currency(Cart::instance('shopping')->subtotal()) }}</div>
             </div>
             @if(session()->has('coupon'))
               <div class="order-col">
@@ -172,18 +172,18 @@
               <hr>
               <div class="order-col">
                 <div>{{ __('pages.checkout.new_subtotal') }}</div>
-                <div>${{ $newSubtotal }}</div>
+                <div>{{ currency($newSubtotal) }}</div>
               </div>
             @endif
             <div class="order-col">
               <div>{{ __('pages.checkout.tax') }}({{ $taxPercent }}%)</div>
               {{--<div>+${{ Cart::tax() }}</div>--}}
-              <div>+${{ $newTax }}</div>
+              <div>+{{ currency($newTax) }}</div>
             </div>
             <hr>
             <div class="order-col">
               <div><strong>{{ strtoupper(__('pages.checkout.total')) }}</strong></div>
-              <div><strong class="order-total">${{ number_format($newTotal, 2) }}</strong></div>
+              <div><strong class="order-total">{{ currency($newTotal) }}</strong></div>
             </div>
           </div>
 

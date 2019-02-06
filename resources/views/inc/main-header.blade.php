@@ -71,7 +71,7 @@
 
           <cart-loader
             :cart-items="{{ getCartItems(true) }}"
-            cart-total-price="{{ getTotalPrice() }}"
+            cart-total-price="{{ getTotalPrice(true) }}"
             cart-count="{{ getCartCount() }}"
           ></cart-loader>
 

@@ -19,7 +19,7 @@
                 {{ item.model.name }}
               </a>
             </h3>
-            <h4 class="product-price"><span class="qty">{{ item.qty }}x</span>${{ item.price }}
+            <h4 class="product-price"><span class="qty">{{ item.qty }}x</span>{{ item.priceFormatted }}
             </h4>
           </div>
           <button class="delete"><i class="fa fa-close" type="submit" @click="removeItem(index)"></i></button>
@@ -34,7 +34,7 @@
           {{ getCartItemsCount }}
           {{ $t('partials.header.item_selected') }}
         </small>
-        <h5>{{ $t('partials.header.subtotal') }}: ${{ getCartTotalPrice }}</h5>
+        <h5>{{ $t('partials.header.subtotal') }}: {{ getCartTotalPrice }}</h5>
       </div>
 
       <div class="cart-btns">
@@ -121,7 +121,7 @@
        */
       removeItem(index) {
 
-        axios.delete('cart/' + index)
+        axios.delete('cartAjax/' + index)
           .then(response => {
             this.$toasted.global.toastSuccess({ message: response.data.message });
 

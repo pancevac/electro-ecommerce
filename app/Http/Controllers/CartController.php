@@ -129,4 +129,26 @@ class CartController extends Controller
 
         return back()->with('success', trans('messages.cart.deleted'));
     }
+
+    /**
+     * Remove the specified resource from storage with Ajax.
+     *
+     * @param $rowId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function AjaxDestroy($rowId)
+    {
+        try {
+            Cart::instance('shopping')->remove($rowId);
+        }
+            // Catch exception when RowId is invalid and return message
+        catch (InvalidRowIDException $e) {
+
+            return response()->json([
+                'message' =>trans('messages.cart.unknown_product')
+            ], 403);
+        }
+
+        return getCartStatus(trans('messages.cart.deleted'));
+    }
 }

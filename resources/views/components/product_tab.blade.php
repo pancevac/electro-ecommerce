@@ -16,11 +16,11 @@
 
     <h3 class="product-name"><a href="{{ $product->getUrl() }}">{{ $product->get('name') }}</a></h3>
     @if($product->hasDiscount())
-      <h4 class="product-price">${{ $product->discountedPrice }}
-        <del class="product-old-price">${{ $product->price }}</del>
+      <h4 class="product-price">{{ currency($product->discountedPrice) }}
+        <del class="product-old-price">{{ currency($product->price) }}</del>
       </h4>
     @else
-      <h4 class="product-price">${{ $product->price }}</h4>
+      <h4 class="product-price">{{ currency($product->price) }}</h4>
     @endif
     <div class="product-rating">
       @for($i = 0; $i < round($product->averageRate); $i++)

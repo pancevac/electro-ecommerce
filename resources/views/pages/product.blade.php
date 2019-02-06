@@ -71,11 +71,11 @@
             </div>
             <div>
               @if($product->hasDiscount())
-                <h3 class="product-price">${{ $product->discountedPrice }}
-                  <del class="product-old-price">${{ $product->price }}</del>
+                <h3 class="product-price">{{ currency($product->discountedPrice) }}
+                  <del class="product-old-price">{{ currency($product->price) }}</del>
                 </h3>
               @else
-                <h3 class="product-price">${{ $product->price }}</h3>
+                <h3 class="product-price">{{ currency($product->price) }}</h3>
               @endif
               <span class="product-available">
                                 @if($product->isInStock())

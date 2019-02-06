@@ -45,6 +45,7 @@ Route::group([
 Route::get('cart', 'CartController@index')->name('cart.index');
 Route::post('cart', 'CartController@store')->name('cart.store');
 Route::put('cart/{rowId}', 'CartController@update')->name('cart.update');
+Route::delete('cartAjax/{rowId}', 'CartController@AjaxDestroy')->name('cart.cartAjax');
 Route::delete('cart/{rowId}', 'CartController@destroy')->name('cart.destroy');
 
 // Wish list

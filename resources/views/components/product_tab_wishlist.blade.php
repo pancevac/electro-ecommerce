@@ -22,11 +22,11 @@
     <h3 class="product-name"><a href="{{ $product->model->getUrl() }}">{{ $product->model->name }}</a></h3>
 
     @if($product->model->hasDiscount())
-      <h4 class="product-price">${{ $product->model->discountedPrice }}
-        <del class="product-old-price">${{ $product->model->price }}</del>
+      <h4 class="product-price">{{ currency($product->model->discountedPrice) }}
+        <del class="product-old-price">{{ currency($product->model->price) }}</del>
       </h4>
     @else
-      <h4 class="product-price">${{ $product->model->price }}</h4>
+      <h4 class="product-price">{{ currency($product->model->price) }}</h4>
     @endif
     <div class="product-rating">
       @for($i = 0; $i < round($product->model->averageRate); $i++)
