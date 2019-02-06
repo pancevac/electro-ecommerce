@@ -107,12 +107,13 @@
               link="{{ route('cart.store') }}"
             ></cart-add-multiple>
 
-            <ul class="product-btns">
-              {{ Form::open(['id' => 'wishlist-form','method' => 'PUT', 'route' => ['wishlist.update', $product->id]]) }}
-              <li><a onclick="document.getElementById('wishlist-form').submit();"><i class="fa fa-heart-o"></i> add to
-                  wishlist</a></li>
-              {{ Form::close() }}
-            </ul>
+            <wish-list-add
+              product-code="{{ $product->code }}"
+              link="{{ route('wishlist.store') }}"
+              :as-link="true"
+            >
+            </wish-list-add>
+
             <ul class="product-links">
               <li>{{ __('pages.product.brand') }}:</li>
               <li><a

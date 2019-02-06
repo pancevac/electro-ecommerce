@@ -48,12 +48,8 @@ Route::put('cart/{rowId}', 'CartController@update')->name('cart.update');
 Route::delete('cart/{rowId}', 'CartController@destroy')->name('cart.destroy');
 
 // Wish list
-/*Route::get('wishlist/create', 'WishlistController@create')->name('wishlist.create')->middleware('auth');
-Route::get('wishlist', 'WishlistController@index')->name('wishlist.index')->middleware('auth');
-Route::post('wishlist', 'WishlistController@store')->name('wishlist.store')->middleware('auth');
-Route::put('wishlist/{id}', 'WishlistController@update')->name('wishlist.update')->middleware('auth');
-Route::delete('wishlist/{id}', 'WishlistController@destroy')->name('wishlist.destroy')->middleware('auth');*/
-Route::apiResource('wishlist', 'WishlistController')->middleware('auth');
+Route::post('wishlist/all', 'WishlistController@moveAllToCart')->name('wishlist.addToCart');
+Route::resource('wishlist', 'WishlistController')->except(['create', 'show', 'update', 'edit']);
 
 // Comment handler
 Route::put('product/{coupon}', [

@@ -2,13 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddToWishList;
 use App\Models\Product;
+use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class WishlistController extends Controller
 {
+
+    /**
+     * WishlistController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except([
+            'store',
+            // 'destroy',
+        ]); // TODO kasnije skloni destroy zato sto ces ga promeniti u post
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,135 +30,140 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        // Grab saved wishlist instance from db
-        Cart::instance('wishlist')->restore(Auth::user()->id);
+        $this->restoreWishListSession();
 
-        // Load it
-        $products = Cart::instance('wishlist')->content();
+        // Load wish list items saved in wish list
+        $wishListItems = Cart::instance('wishlist')->content();
 
-        // Update instance in db becaouse it is lost after retrieving
-        Cart::instance('wishlist')->store(Auth::user()->id);
+        $this->storeWishListSession();
 
-        return view('pages.wishlist')->with('products', $products);
-    }
+        // Get all products with corresponding ids from wish list items collection
+        $products = Product::with(['translations', 'category', 'discount'])
+            ->findOrFail($wishListItems->pluck('id')->toArray());
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        dd(Cart::instance('wishlist')->content()->where('id', 7)->isEmpty());
+        // Modify each wish list item appending product property
+        $items = $wishListItems->map(function ($item, $rowId) use ($products) {
+
+            // Get product from collection
+            $item->model = $products->where('id', $item->id)->first();
+            return $item;
+        });
+
+        return view('pages.wishlist')->with('products', $items);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param AddToWishList $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(AddToWishList $request)
     {
-        if ($request->submit) {
+        // Get product which we want to store to cart
+        $product = Product::where('code', $request->input('product_code'))->first();
 
-            // Get shopping cart instance
-            $shopping = Cart::instance('shopping')->content();
-
-            foreach (Cart::instance('wishlist')->content() as $product) {
-
-                // Check if there isn't already product in shopping cart
-                if (!$shopping->has($product->rowId)) {
-
-                    // Adding products to shopping cart instance
-                    Cart::instance('shopping')->add([
-                        'id' => $product->id,
-                        'name' => $product->name,
-                        'qty' => 1,
-                        'price' => $product->price,
-                    ]);
-                }
-            }
-            // Success
-            return redirect()->route('wishlist.index')->with('success', 'Items successfully added in shopping cart!');
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        // Retrieve product
-        $product = Product::find($id);
-
-        // Restore previously wishlist instance from db if any. Note: this will delete record from db after getting info
-        Cart::instance('wishlist')->restore(Auth::user()->id);
-
-        // Check if product is already added in wish list
-        if (!Cart::instance('wishlist')->content()->where('id', $id)->isEmpty()) {
-
-            Cart::instance('wishlist')->store(Auth::user()->id);
-            return back()->with('error', 'Item is already added in wish list.');
+        if (!$product) {
+            return response()->json([
+                'message' => trans('messages.wish_list.unknown_product'),
+            ], 403);
         }
 
-        // Make wishlist instance
-        Cart::instance('wishlist')->add([
-            'id' => $product->id,
-            'name' => $product->name,
-            'qty' => 1,
-            'price' => $product->price,
-        ])->associate(\App\Models\Product::class);
+        // Restore wish list session from db
+        // After restoring, wish list is deleted from db
+        // so we need to store instance again in order to save wish list
+        $this->restoreWishListSession();
 
-        // Update instance in db
-        Cart::instance('wishlist')->store(Auth::user()->id);
+        // Search wish list if same product is already there
+        // If it is, return message to user
+        $hasInWishList = \Cart::instance('wishlist')
+            ->search(function ($cartItem, $rowId) use ($product) {
+                return $cartItem->id === $product->id;
+            });
 
-        return back()->with('success', 'Item added to wish list!');
+        if ($hasInWishList->count()) {
+
+            $this->storeWishListSession();
+
+            return response()->json([
+                'message' => trans('messages.wish_list.duplicate')
+            ], 403);
+        }
+
+        // Add product to wish list
+        \Cart::instance('wishlist')->add($product, 1);
+
+        // Save wish list session instance in db
+        $this->storeWishListSession();
+
+        return getCartStatus(trans('messages.wish_list.added'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $rowId
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($rowId)
     {
         // Restore instance from db
-        Cart::instance('wishlist')->restore(Auth::user()->id);
+        $this->restoreWishListSession();
 
-        // Remove item from instance
-        Cart::instance('wishlist')->remove($id);
+        try {
+            \Cart::instance('wishlist')->remove($rowId);
+        }
+        // Catch exception when RowId is invalid and return message
+        catch (InvalidRowIDException $e) {
 
-        // Update instance in db
-        Cart::instance('wishlist')->store(Auth::user()->id);
+            $this->storeWishListSession();
 
-        return back()->with('success', 'Item successfully removed from wish list!');
+            return back()->with('error', trans('messages.wish_list.unknown_product'));
+        }
+
+        $this->storeWishListSession();
+
+        return back()->with('success', trans('messages.wish_list.deleted'));
+    }
+
+    /**
+     * Add all products from wish list to shopping cart.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function moveAllToCart(Request $request)
+    {
+        $this->restoreWishListSession();
+
+        $wishListItems = \Cart::instance('wishlist')->content();
+
+        $this->storeWishListSession();
+
+        $products = Product::findMany($wishListItems->pluck('id')->toArray());
+
+        if ($products->isEmpty()) {
+            return back()->with('error', 'No products in wish list!');
+        }
+
+        \Cart::instance('shopping')->add($products->all());
+
+        return back()->with('success', trans('messages.wish_list.added_all_to_cart'));
+    }
+
+    /**
+     * Restore wish list session from db
+     */
+    protected function restoreWishListSession()
+    {
+        \Cart::instance('wishlist')->restore(Auth::id());
+    }
+
+    /**
+     * Store wish list session in db
+     */
+    protected function storeWishListSession()
+    {
+        \Cart::instance('wishlist')->store(Auth::id());
     }
 }

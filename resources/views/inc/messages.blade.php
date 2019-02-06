@@ -1,33 +1,15 @@
-@if ($errors->any())
-    <div class="section">
-        <div class="container">
-            <div class="alert alert-danger mt-2">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{!! $error !!}</li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-    </div>
-@endif
+@if (session()->has('success'))
 
-@if(session('success'))
-    <div class="section">
-        <div class="container">
-            <div class="alert alert-success mt-2">
-                {!! session('success') !!}
-            </div>
-        </div>
-    </div>
-@endif
+  <notification
+      message="{{ session()->get('success') }}"
+      type="success"
+  ></notification>
 
-@if(session('error'))
-    <div class="section">
-        <div class="container">
-            <div class="alert alert-danger mt-2">
-                {!! session('error') !!}
-            </div>
-        </div>
-    </div>
+@elseif(session()->has('error'))
+
+  <notification
+      message="{{ session()->get('error') }}"
+      type="error"
+  ></notification>
+
 @endif

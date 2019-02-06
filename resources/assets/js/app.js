@@ -23,6 +23,8 @@ Vue.component('cart-remove', require('./components/CartRemove.vue'));
 
 Vue.component('wish-list-add', require('./components/WishListAdd.vue'));
 
+Vue.component('notification', require('./components/notification'));
+
 import Toast from './packages/toastConfig';
 import { store } from "./store";
 import { i18n } from "./packages/localization";
