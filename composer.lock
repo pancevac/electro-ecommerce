@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f493cea2de61e109fe5e88bba611f461",
+    "content-hash": "96a2087199a801f7fb9c71bf5ff43db6",
     "packages": [
         {
             "name": "actuallymab/laravel-comment",
@@ -728,6 +728,44 @@
                 "laravel"
             ],
             "time": "2018-10-30T22:06:33+00:00"
+        },
+        {
+            "name": "devfactory/imagecache",
+            "version": "3.0.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DevFactoryCH/imagecache.git",
+                "reference": "73783d14f40d01d8bdb2385256d244521340b92b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DevFactoryCH/imagecache/zipball/73783d14f40d01d8bdb2385256d244521340b92b",
+                "reference": "73783d14f40d01d8bdb2385256d244521340b92b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "intervention/image": "~2.1",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Devfactory\\Imagecache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "DevFactory Sarl",
+                    "email": "developer@devfactory.ch"
+                }
+            ],
+            "description": "Laravel package for generating thumbnails of images and caching them in your public files folder.",
+            "time": "2018-01-12T08:28:40+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

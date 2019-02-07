@@ -13,6 +13,7 @@
         "algolia/algoliasearch-client-php": "^1.25",
         "cartalyst/stripe-laravel": "^8.0",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
+        "devfactory/imagecache": "^3.0",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "gloudemans/shoppingcart": "^2.5",

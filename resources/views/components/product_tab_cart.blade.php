@@ -1,6 +1,6 @@
 <div class="product">
   <div class="product-img">
-    <img src="{{ productImage($item->model->image) }}" alt="">
+    <img src="{{ $item->model->thumbImage }}" alt="">
     <div class="product-label">
       @if($item->model->hasDiscount())
         <span class="sale">-{{ $item->model->discount->percent_off }}%</span>

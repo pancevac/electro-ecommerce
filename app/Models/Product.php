@@ -118,6 +118,16 @@ class Product extends Model implements Buyable
     }
 
     /**
+     * Get optimized product thumbnail image.
+     *
+     * @return string
+     */
+    public function getThumbImageAttribute()
+    {
+        return \Imagecache::get($this->image, 'product_thumb')->src;
+    }
+
+    /**
      * Returns discounted price if there is discount, otherwise, return original price
      *
      * @return float
