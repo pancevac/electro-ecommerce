@@ -25,6 +25,8 @@ Vue.component('wish-list-add', require('./components/WishListAdd.vue'));
 
 Vue.component('notification', require('./components/notification'));
 
+Vue.component('lazy-image', require('./components/LazyImage'));
+
 import Toast from './packages/toastConfig';
 import { store } from "./store";
 import { i18n } from "./packages/localization";
