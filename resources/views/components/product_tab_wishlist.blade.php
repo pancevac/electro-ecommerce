@@ -1,6 +1,10 @@
 <div class="product">
-  <div class="product-img">
-    <img src="{{ $product->model->thumbImage }}" alt="">
+  <div class="product-img" style="padding-top: 100%">
+
+    <lazy-image
+        src="{{ $product->model->thumbImage }}"
+    ></lazy-image>
+
     <div class="product-label">
       @if($product->model->hasDiscount())
         <span class="sale">-{{ $product->model->discount->percent_off }}%</span>

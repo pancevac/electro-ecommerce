@@ -32,5 +32,10 @@ return [
         'height' => 263,
         'method' => 'crop',
     ],
+    'product_small' => [
+        'width' => 60,
+        'height' => 60,
+        'method' => 'crop',
+    ],
 
 ];

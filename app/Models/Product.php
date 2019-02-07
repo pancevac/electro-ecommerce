@@ -128,6 +128,16 @@ class Product extends Model implements Buyable
     }
 
     /**
+     * Get optimized small product image.
+     *
+     * @return string
+     */
+    public function getSmallImageAttribute()
+    {
+        return \Imagecache::get($this->image, 'product_small')->src;
+    }
+
+    /**
      * Returns discounted price if there is discount, otherwise, return original price
      *
      * @return float

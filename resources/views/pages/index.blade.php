@@ -85,7 +85,7 @@
               <div id="tab1" class="tab-pane active">
                 <div class="products-slick" data-nav="#slick-nav-1">
 
-                  @foreach($featured_products as $product)
+                  @foreach($featuredProducts as $product)
 
                     @component('components.product_tab', [
                       'product' => $product
@@ -180,7 +180,7 @@
               <div id="tab2" class="tab-pane fade in active">
                 <div class="products-slick" data-nav="#slick-nav-2">
 
-                  @foreach($new_products as $product)
+                  @foreach($newProducts as $product)
 
                     @include('components.product_tab')
 
@@ -215,59 +215,12 @@
             </div>
           </div>
 
-          <div class="products-widget-slick" data-nav="#slick-nav-3">
-            <div>
-              @if($top_sales)
-                @foreach($top_sales->take(3) as $top_sale)
-                  <div class="product-widget">
-                    <div class="product-img">
-                      <img src="{{ productImage($top_sale->image) }}" alt="">
-                    </div>
-                    <div class="product-body">
-                      <p class="product-category">{{ $top_sale->categoryName }}</p>
-                      <h3 class="product-name"><a
-                            href="{{ route('product', ['id' => $top_sale->id]) }}">{{ $top_sale->name }}</a></h3>
-                      @if(isset($top_sale->percentOff))
-                        <h4 class="product-price">${{ calculateDiscountPrice($top_sale->price, $top_sale->percentOff) }}
-                          <del class="product-old-price">${{ $top_sale->price }}</del>
-                        </h4>
-                      @else
-                        <h4 class="product-price">${{ $top_sale->price }}</h4>
-                      @endif
-                    </div>
-                  </div>
-                @endforeach
-              @else
-                <strong>No top sales products</strong>
-              @endif
-            </div>
+          @component('components.product_widget_slick', [
+            'products' => $topSales,
+            'widgetId' => 3,
+          ])
+          @endcomponent
 
-            <div>
-              @if($top_sales)
-                @foreach($top_sales->slice(2) as $top_sale)
-                  <div class="product-widget">
-                    <div class="product-img">
-                      <img src="{{ productImage($top_sale->image) }}" alt="">
-                    </div>
-                    <div class="product-body">
-                      <p class="product-category">{{ $top_sale->categoryName }}</p>
-                      <h3 class="product-name"><a
-                            href="{{ route('product', ['id' => $top_sale->id]) }}">{{ $top_sale->name }}</a></h3>
-                      @if(isset($top_sale->percentOff))
-                        <h4 class="product-price">${{ calculateDiscountPrice($top_sale->price, $top_sale->percentOff) }}
-                          <del class="product-old-price">${{ $top_sale->price }}</del>
-                        </h4>
-                      @else
-                        <h4 class="product-price">${{ $top_sale->price }}</h4>
-                      @endif
-                    </div>
-                  </div>
-                @endforeach
-              @else
-                <strong>No top sales products</strong>
-              @endif
-            </div>
-          </div>
         </div>
 
         <div class="col-md-4 col-xs-6">
@@ -278,60 +231,12 @@
             </div>
           </div>
 
-          <div class="products-widget-slick" data-nav="#slick-nav-4">
-            <div>
-              @if($might_also_like)
-                @foreach($might_also_like->take(3) as $product)
-                  <div class="product-widget">
-                    <div class="product-img">
-                      <img src="{{ productImage($product->image) }}" alt="">
-                    </div>
-                    <div class="product-body">
-                      <p class="product-category">{{ $product->category->name }}</p>
-                      <h3 class="product-name"><a
-                            href="{{ route('product', ['id' => $product->id]) }}">{{ $product->name }}</a></h3>
-                      @if(isset($product->discount->percent_off))
-                        <h4 class="product-price">
-                          ${{ calculateDiscountPrice($product->price, $product->discount->percent_off) }}
-                          <del class="product-old-price">${{ $product->price }}</del>
-                        </h4>
-                      @else
-                        <h4 class="product-price">${{ $product->price }}</h4>
-                      @endif
-                    </div>
-                  </div>
-                @endforeach
-              @else
-                <strong>No top sales products</strong>
-              @endif
-            </div>
+          @component('components.product_widget_slick', [
+            'products' => $mightAlsoLike,
+            'widgetId' => 4,
+          ])
+          @endcomponent
 
-            <div>
-              @if($top_sales)
-                @foreach($top_sales->slice(2) as $top_sale)
-                  <div class="product-widget">
-                    <div class="product-img">
-                      <img src="{{ productImage($top_sale->image) }}" alt="">
-                    </div>
-                    <div class="product-body">
-                      <p class="product-category">{{ $top_sale->categoryName }}</p>
-                      <h3 class="product-name"><a
-                            href="{{ route('product', ['id' => $top_sale->id]) }}">{{ $top_sale->name }}</a></h3>
-                      @if(isset($product->percentOff))
-                        <h4 class="product-price">${{ calculateDiscountPrice($product->price, $product->percentOff) }}
-                          <del class="product-old-price">${{ $product->price }}</del>
-                        </h4>
-                      @else
-                        <h4 class="product-price">${{ $product->price }}</h4>
-                      @endif
-                    </div>
-                  </div>
-                @endforeach
-              @else
-                <strong>No top sales products</strong>
-              @endif
-            </div>
-          </div>
         </div>
 
         <div class="clearfix visible-sm visible-xs"></div>
@@ -344,61 +249,12 @@
             </div>
           </div>
 
-          <div class="products-widget-slick" data-nav="#slick-nav-5">
-            @if($discounts)
-              <div>
-              @foreach($discounts->take(3) as $discount)
-                <!-- product widget -->
-                  <div class="product-widget">
-                    <div class="product-img">
-                      <img src="{{ productImage($discount->image) }}" alt="">
-                    </div>
-                    <div class="product-body">
-                      <p class="product-category">{{ $discount->category->name }}</p>
-                      <h3 class="product-name"><a
-                            href="{{ route('product', ['id' => $discount->id]) }}">{{ $discount->name }}</a></h3>
-                      @if(isset($discount->discount->percent_off))
-                        <h4 class="product-price">
-                          ${{ calculateDiscountPrice($discount->price, $discount->discount->percent_off) }}
-                          <del class="product-old-price">${{ $discount->price }}</del>
-                        </h4>
-                      @else
-                        <h4 class="product-price">${{ $discount->price }}</h4>
-                      @endif
-                    </div>
-                  </div>
-                  <!-- /product widget -->
-                @endforeach
-                @endif
-              </div>
+          @component('components.product_widget_slick', [
+            'products' => $discounts,
+            'widgetId' => 5,
+          ])
+          @endcomponent
 
-              @if($discounts->slice(2)->isEmpty())
-                <div>
-                @foreach($discounts->slice(2) as $discount)
-                  <!-- product widget -->
-                    <div class="product-widget">
-                      <div class="product-img">
-                        <img src="{{ productImage($discount->image) }}" alt="">
-                      </div>
-                      <div class="product-body">
-                        <p class="product-category">{{ $discount->category->name }}</p>
-                        <h3 class="product-name"><a
-                              href="{{ route('product', ['id' => $discount->id]) }}">{{ $discount->name }}</a></h3>
-                        @if(isset($discount->discount->percent_off))
-                          <h4 class="product-price">
-                            ${{ calculateDiscountPrice($discount->price, $discount->discount->percent_off) }}
-                            <del class="product-old-price">${{ $discount->price }}</del>
-                          </h4>
-                        @else
-                          <h4 class="product-price">${{ $discount->price }}</h4>
-                        @endif
-                      </div>
-                    </div>
-                    <!-- /product widget -->
-                  @endforeach
-                </div>
-              @endif
-          </div>
         </div>
 
       </div>

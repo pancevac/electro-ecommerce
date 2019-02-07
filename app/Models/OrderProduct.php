@@ -10,17 +10,32 @@ class OrderProduct extends Model
 
     protected $fillable = array('order_id', 'product_id', 'quantity', 'price', 'percent_off');
 
+    /**
+     * Get products that are top saled
+     *
+     * @param $limit
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public static function getTopSales($limit)
     {
-        return \DB::table('order_product')
-            ->select('products.*', 'percent_off AS percentOff', 'category.name AS categoryName', 'category.id as CategoryId', \DB::raw('COUNT(order_product.product_id) AS product_count'))
-            ->join('products', 'order_product.product_id', '=', 'products.id')
-            ->join('category', 'products.category_id', '=', 'category.id')
+        $productsIds = \DB::table('order_product')
+            ->select('order_product.product_id', \DB::raw('COUNT(order_product.product_id) AS product_count'))
             ->groupBy('order_product.product_id')
             ->orderBy('product_count', 'DESC')
             ->limit($limit)
-             // popravi ovo
-            ->get();
+            // popravi ovo
+            ->get()
+            ->pluck('product_id')
+            ->toArray();
+
+        $products = Product::with(['translations', 'category', 'discount'])
+            ->findMany($productsIds);
+
+        return $products->sortBy(function ($model) use ($productsIds) {
+            return array_search($model->getKey(), $productsIds);
+        });
+
+
 
         /*$orderitems = $order->groupBy('product_id')->sort()->map(function ($product) {
              return $product->count();

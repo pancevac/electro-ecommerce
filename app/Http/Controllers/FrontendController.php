@@ -52,12 +52,15 @@ class FrontendController extends Controller
         // Get top sales
         $topSales = Cache::remember('top_sales', $this->cacheMinutes, function () {
             return OrderProduct::getTopSales(6);
+            //return (new Product())->topSales();
         });
 
         // Might also like
         $mightAlsoLike = Cache::remember('mightAlsoLike', $this->cacheMinutes, function () use ($model) {
             return $model->mightAlsoLike(6);
         });
+
+        //dd($mightAlsoLike);
 
         // Discount products
         $discounts = Cache::remember('discounts', $this->cacheMinutes, function () use ($model) {
@@ -68,10 +71,10 @@ class FrontendController extends Controller
         });
 
         return view('pages.index')->with([
-            'featured_products' => $featuredProducts,
-            'new_products' => $newProducts,
-            'top_sales' => $topSales,
-            'might_also_like' => $mightAlsoLike,
+            'featuredProducts' => $featuredProducts,
+            'newProducts' => $newProducts,
+            'topSales' => $topSales,
+            'mightAlsoLike' => $mightAlsoLike,
             'discounts' => $discounts,
         ]);
     }

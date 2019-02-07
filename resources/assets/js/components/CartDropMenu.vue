@@ -11,7 +11,7 @@
 
         <div class="product-widget" v-if="getCartItemsCount" v-for="(item, index) in getCartItems">
           <div class="product-img">
-            <img :src="item.model.imageVue" alt="">
+            <img :src="item.model.smallImage" alt="">
           </div>
           <div class="product-body">
             <h3 class="product-name">

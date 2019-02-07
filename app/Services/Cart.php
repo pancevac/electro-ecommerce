@@ -50,7 +50,7 @@ class Cart
         $products = Product::with(['category', 'discount', 'comments'])
             ->whereIn('id', $content->pluck('id'))
             ->get()->each
-            ->setAppends(['link', 'imageVue'])
+            ->setAppends(['link', 'smallImage'])
             ->makeHidden($this->hiddenProductAttributes);
 
         $this->items = $content->map(function ($item, $rowId) use ($products) {
