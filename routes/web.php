@@ -18,11 +18,15 @@ Route::group([
 
     Route::get('/', 'FrontendController@index')->name('frontend.index');
 
-    // Products
+    /**
+     * Products
+     */
     Route::get(LaravelLocalization::transRoute('routes.product'), 'FrontendController@product')->name('product');
     Route::get(LaravelLocalization::transRoute('routes.shop'), 'FrontendController@store')->name('store');
 
-    // User
+    /**
+     * User
+     */
     Route::get(LaravelLocalization::transRoute('routes.customer.dashboard'), 'UserController@index')->name('dashboard');
     Route::get(LaravelLocalization::transRoute('routes.customer.edit'), 'UserController@edit')->name('user.edit');
     Route::post(LaravelLocalization::transRoute('routes.customer.update'), 'UserController@update')->name('user.update');
@@ -30,14 +34,47 @@ Route::group([
     Route::get(LaravelLocalization::transRoute('routes.customer.order'),'UserController@order')->name('user.order');
     //Route::get('/home', 'HomeController@index')->name('home');
 
-    // Checkout
+    /**
+     * Checkout
+     */
     Route::get(LaravelLocalization::transRoute('routes.checkout'), 'CheckoutController@index')->name('checkout.index');
     Route::post(LaravelLocalization::transRoute('routes.purchase'), 'CheckoutController@store')->name('charge');
 
-    // About us
+    /**
+     * About us
+     */
     Route::view(LaravelLocalization::transRoute('routes.about'), 'pages.about-us')->name('about_us');
-    // Contact
+
+    /**
+     * Contact
+     */
     Route::view(LaravelLocalization::transRoute('routes.contact'), 'pages.contact')->name('contact');
+
+    /**
+     * Login
+     */
+    Route::get(LaravelLocalization::transRoute('routes.login'), 'Auth\LoginController@showLoginForm')->name('login');
+    Route::post(LaravelLocalization::transRoute('routes.login'), 'Auth\LoginController@login');
+    Route::post(LaravelLocalization::transRoute('routes.logout'), 'Auth\LoginController@logout')->name('logout');
+
+    /**
+     * Register
+     */
+    Route::get(LaravelLocalization::transRoute('routes.register'), 'Auth\RegisterController@showRegistrationForm')->name('register');
+    Route::post(LaravelLocalization::transRoute('routes.register'), 'Auth\RegisterController@register');
+
+    // Password Reset Routes...
+    Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+    /**
+     * Email verification
+     */
+    Route::get(LaravelLocalization::transRoute('routes.register-verify'), 'Auth\RegisterController@verify')->name('verifyEmail');
+    Route::get(LaravelLocalization::transRoute('routes.register-verify-resend'), 'Auth\RegisterController@showResendVerificationEmailForm')->name('showResendVerificationForm');
+    Route::post(LaravelLocalization::transRoute('routes.register-verify-resend'), 'Auth\RegisterController@resendVerificationEmail')->name('resendVerification')->middleware('throttle:2,1');
 
 });
 
@@ -71,7 +108,7 @@ Route::get('/thankyou', function () {
     return redirect('/');
 })->name('thankyou');
 
-Auth::routes();
+//Auth::routes();
 
 // Admin Panel
 Route::group(['prefix' => 'admin'], function () {

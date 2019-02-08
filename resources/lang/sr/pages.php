@@ -168,10 +168,20 @@ return [
                 <p>Email sa potvrdom porudžbine je poslat na vašu E-mail adresu.</p>',
         'button' => 'Početna strana',
     ],
-    'thank_you' => [
+    'newsletter_thank_you' => [
         'title' => 'Newsletter',
         'message' => '<h1>Uspešno ste se pretplatili na naš <br> Newsletter </h1>
                 <p>Email sa potvrdom je poslat na vašu E-mail adresu.</p>',
         'button' => 'Početna strana',
+    ],
+    'login' => [
+            'registered-users' => 'Registrovani korisnici',
+            'registered-users-description' => 'Ukoliko već imate kreiran korisnički nalog kod nas, molimo Vas prijavite se.',
+            'new-users' => 'Novi korisnici',
+            'new-users-description' => 'Kreiranjem korisničkog računa omogućeno Vam je brže i jednostavnije kupovanje porudžbina, promena podataka, kao i pregled i praćenje statusa Vaših porudžbina i pregled dosadašnjih porudžbina.',
+    ],
+    'register' => [
+            'registered-users' => 'Registrovani korisnici',
+            'registered-users-description' => 'Popunite sledeće informacije kako biste kreirali svoj korisnički nalog.',
     ],
 ];

@@ -17,6 +17,7 @@
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "gloudemans/shoppingcart": "^2.5",
+        "josiasmontag/laravel-email-verification": "^1.2",
         "laravel/framework": "5.6.*",
         "laravel/scout": "^4.0",
         "laravel/tinker": "^1.0",

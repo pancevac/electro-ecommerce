@@ -17,7 +17,7 @@ class WishlistController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except([
+        $this->middleware(['auth', 'isEmailVerified'])->except([
             'store',
             // 'destroy',
         ]); // TODO kasnije skloni destroy zato sto ces ga promeniti u post

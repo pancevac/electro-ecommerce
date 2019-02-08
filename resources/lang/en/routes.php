@@ -23,4 +23,10 @@ return [
 
     'about' => 'about-us',
     'contact' => 'contact',
+
+    'login' => 'login',
+    'logout' => 'logout',
+    'register' => 'register',
+    'register-verify' => 'register/verify',
+    'register-verify-resend' => 'register/verify/resend',
 ];

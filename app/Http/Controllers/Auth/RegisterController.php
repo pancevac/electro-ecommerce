@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Lunaweb\EmailVerification\Traits\VerifiesEmail;
 
 class RegisterController extends Controller
 {
@@ -22,6 +24,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use VerifiesEmail;
 
     /**
      * Where to redirect users after registration.
@@ -37,8 +40,21 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest', ['except' => ['verify', 'showResendVerificationEmailForm', 'resendVerificationEmail']]);
+        $this->middleware('auth', ['only' => ['showResendVerificationEmailForm', 'resendVerificationEmail']]);
     }
+
+    /**
+     * Show form to the user which allows resending the verification mail
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function showResendVerificationEmailForm()
+    {
+        $user = Auth::user();
+        return view('auth.resend_email', ['verified' => $user->verified, 'email' => $user->email]);
+    }
+
 
     /**
      * Get a validator for an incoming registration request.

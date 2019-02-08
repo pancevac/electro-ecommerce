@@ -174,4 +174,14 @@ return [
                 <p>Your email address is successfully registered on Newsletter</p>',
         'button' => 'Home page',
     ],
+    'login' => [
+        'registered-users' => 'Registered users',
+        'registered-users-description' => 'If you already registered, please login.',
+        'new-users' => 'New users',
+        'new-users-description' => 'Description on english.',
+    ],
+    'register' => [
+        'registered-users' => 'Registered users',
+        'registered-users-description' => 'Please fill fields bellow to create your user account.',
+    ],
 ];

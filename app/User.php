@@ -2,14 +2,17 @@
 
 namespace App;
 
+use App\Traits\CanVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Actuallymab\LaravelComment\CanComment;
+use Lunaweb\EmailVerification\Contracts\CanVerifyEmail as CanVerifyEmailContract;
 
-class User extends \TCG\Voyager\Models\User
+class User extends \TCG\Voyager\Models\User implements CanVerifyEmailContract
 {
     use Notifiable;
     use CanComment;
+    use CanVerifyEmail;
 
     /**
      * The attributes that are mass assignable.

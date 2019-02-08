@@ -23,4 +23,10 @@ return [
 
     'about' => 'o-nama',
     'contact' => 'kontakt',
+
+    'login' => 'prijava',
+    'logout' => 'odjava',
+    'register' => 'registracija',
+    'register-verify' => 'registracija/validacija',
+    'register-verify-resend' => 'registracija/validacija/ponovno-slanje',
 ];
