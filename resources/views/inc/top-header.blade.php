@@ -7,7 +7,27 @@
             <li><a href="#"><i class="fa fa-map-marker"></i> {{ setting('site.address') }}</a></li>
         </ul>
         <ul class="header-links pull-right">
-            <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
+
+
+            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                @if($loop->last)
+                    <li style="border-right: 1px solid white; padding-right: 20px;">
+                @else
+                    <li>
+                @endif
+                    <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                        {{ $properties['native'] }}
+                    </a>
+                </li>
+            @endforeach
+
+
+            <li>
+              <a href="{{ url()->current() . '/?currency=eur' }}"><i class="fa fa-euro"></i> EUR</a>
+            </li>
+            <li style="padding-right: 20px; border-right: 1px solid white">
+              <a href="{{ url()->current() . '/?currency=rsd' }}"><i class="fa fa-euro"></i> RSD</a>
+            </li>
 
             @guest
                 <li><a href="{{ route('login') }}"><i class="fa fa-user-o"></i> {{ __('partials.header.login') }}</a></li>

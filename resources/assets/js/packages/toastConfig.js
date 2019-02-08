@@ -22,8 +22,8 @@ export default function (Vue) {
 
   // Options to the toast notification
   let optionsSuccess = {
-    type: 'success',
     icon: 'check_circle',
+    theme: 'toasted-primary',
     action: [
       {
         text: 'X',
