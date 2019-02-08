@@ -100,7 +100,9 @@
                     <div class="aside">
                         <h3 class="aside-title">{{ __('pages.shop.top_selling') }}</h3>
 
-                        @include('components.product_widget')
+                        @include('components.product_widget', [
+                            'products' => $topSales
+                        ])
 
                     </div>
                     <!-- /aside Widget -->

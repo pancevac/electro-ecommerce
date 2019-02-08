@@ -1,21 +1,29 @@
-@if($top_sales)
-    @foreach($top_sales as $top_sale)
-        <div class="product-widget">
-            <div class="product-img">
-                <img src="{{ productImage($top_sale->image) }}" alt="">
-            </div>
-            <div class="product-body">
-                {{ dd($top_sale) }}
-                <p class="product-category">{{ $top_sale->categoryName }}</p>
-                <h3 class="product-name"><a href="{{ $top_sale->getUrl() }}">{{ $top_sale->name }}</a></h3>
-                @if(isset($top_sale->discount->percent_off))
-                    <h4 class="product-price">${{ calculateDiscountPrice($top_sale->price, $top_sale->discount->percent_off) }} <del class="product-old-price">${{ $top_sale->price }}</del></h4>
-                @else
-                    <h4 class="product-price">${{ $top_sale->price }}</h4>
-                @endif
-            </div>
-        </div>
-    @endforeach
+@if($products)
+  @foreach($products as $product)
+    <div class="product-widget">
+      <div class="product-img" style="padding-top: 60px">
+
+        <lazy-image
+          src="{{ $product->smallImage }}"
+        ></lazy-image>
+
+      </div>
+      <div class="product-body">
+
+        <p class="product-category">{{ $product->category->name }}</p>
+        <h3 class="product-name">
+          <a href="{{ $product->getUrl() }}">{{ $product->get('name') }}</a>
+        </h3>
+        @if($product->hasDiscount())
+          <h4 class="product-price">{{ currency($product->discountedPrice) }}
+            <del class="product-old-price">{{ currency($product->price) }}</del>
+          </h4>
+        @else
+          <h4 class="product-price">{{ currency($product->price) }}</h4>
+        @endif
+      </div>
+    </div>
+  @endforeach
 @else
-    <strong>No top sales products</strong>
+  <strong>No top sales products</strong>
 @endif

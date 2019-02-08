@@ -203,7 +203,7 @@ class FrontendController extends Controller
             'products' => $products,
             'categories' => $categories,
             'brands' => $brands,
-            'top_sales' => OrderProduct::getTopSales(5),
+            'topSales' => OrderProduct::getTopSales(5),
         ]);
     }
 
