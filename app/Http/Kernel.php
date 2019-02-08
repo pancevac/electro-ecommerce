@@ -35,8 +35,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\CartMiddleware::class,
             \Torann\Currency\Middleware\CurrencyMiddleware::class,
+            \App\Http\Middleware\CartMiddleware::class,
         ],
 
         'api' => [
