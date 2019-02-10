@@ -21,4 +21,14 @@ class Order extends Model
     {
         return $this->belongsToMany('App\Models\Product')->withPivot('quantity', 'price', 'percent_off');
     }
+
+    /**
+     * Get order link.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return route('user.order', ['id' => $this->id]);
+    }
 }

@@ -29,4 +29,7 @@ return [
     'register' => 'register',
     'register-verify' => 'register/verify',
     'register-verify-resend' => 'register/verify/resend',
+
+    'cart' => 'cart',
+    'wish_list' => 'wish-list',
 ];

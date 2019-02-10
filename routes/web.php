@@ -83,7 +83,7 @@ Route::group([
     /**
      * Shopping cart
      */
-    Route::get('cart', 'CartController@index')->name('cart.index');
+    Route::get(LaravelLocalization::transRoute('routes.cart'), 'CartController@index')->name('cart.index');
     Route::post('cart', 'CartController@store')->name('cart.store');
     Route::put('cart/{rowId}', 'CartController@update')->name('cart.update');
     Route::delete('cartAjax/{rowId}', 'CartController@AjaxDestroy')->name('cart.cartAjax');
@@ -93,7 +93,8 @@ Route::group([
      * Wish list
      */
     Route::post('wishlist/all', 'WishlistController@moveAllToCart')->name('wishlist.addToCart');
-    Route::resource('wishlist', 'WishlistController')->except(['create', 'show', 'update', 'edit']);
+    Route::get(LaravelLocalization::transRoute('routes.wish_list'), 'WishlistController@index')->name('wishlist.index');
+    Route::resource('wishlist', 'WishlistController')->only(['store', 'destroy']);
 
 });
 

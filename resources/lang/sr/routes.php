@@ -29,4 +29,7 @@ return [
     'register' => 'registracija',
     'register-verify' => 'registracija/validacija',
     'register-verify-resend' => 'registracija/validacija/ponovno-slanje',
+
+    'cart' => 'korpa',
+    'wish_list' => 'lista-zelja',
 ];

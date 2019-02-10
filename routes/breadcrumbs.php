@@ -1,6 +1,9 @@
 <?php
 
 
+use App\Models\Order;
+use App\Models\Product;
+
 // Home
 Breadcrumbs::for('/', function ($trail) {
     $trail->push('Home', route('frontend.index'));
@@ -13,23 +16,23 @@ Breadcrumbs::for('dashboard', function ($trail) {
 // Home > User > Edit
 Breadcrumbs::for('user.edit', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push('Edit', route('user.edit'));
+    $trail->push(trans('pages.edit_profile.title'), route('user.edit'));
 });
 // Home > User > Orders
 Breadcrumbs::for('user.orders', function ($trail) {
     $trail->parent('dashboard');
-    $trail->push('Orders', route('user.orders'));
+    $trail->push(trans('pages.orders.title'), route('user.orders'));
 });
 // Home > User > Orders > Order#
-Breadcrumbs::for('user.order', function ($trail, $order) {
+Breadcrumbs::for('user.order', function ($trail, Order $order) {
     $trail->parent('user.orders');
-    $trail->push('Order #'.$order->id, route('user.order', ['id' => $order->id]));
+    $trail->push(trans('pages.order.title') . ' #'.$order->id, $order->getUrl());
 });
 
 // Home > Login
 Breadcrumbs::for('login', function ($trail) {
     $trail->parent('/');
-    $trail->push('Login', route('login'));
+    $trail->push(trans('pages.login.title'), route('login'));
 });
 // Home > login > reset password
 Breadcrumbs::for('password.request', function ($trail) {
@@ -39,26 +42,26 @@ Breadcrumbs::for('password.request', function ($trail) {
 // Register
 Breadcrumbs::for('register', function ($trail) {
     $trail->parent('/');
-    $trail->push('Register', route('register'));
+    $trail->push(trans('pages.register.title'), route('register'));
 });
 
 
 // Home > Checkout
 Breadcrumbs::for('checkout.index', function ($trail) {
     $trail->parent('/');
-    $trail->push('Checkout', route('checkout.index'));
+    $trail->push(trans('pages.checkout.title'), route('checkout.index'));
 });
 
 // Home > Wishlist
 Breadcrumbs::for('wishlist.index', function ($trail) {
     $trail->parent('/');
-    $trail->push('Wishlist', route('wishlist.index'));
+    $trail->push(trans('pages.wish_list.title'), route('wishlist.index'));
 });
 
 // Home > Shopping Cart
 Breadcrumbs::for('cart.index', function ($trail) {
     $trail->parent('/');
-    $trail->push('Shopping Cart', route('cart.index'));
+    $trail->push(trans('pages.cart.title'), route('cart.index'));
 });
 
 // Home > All Categories  ? category
@@ -81,10 +84,10 @@ Breadcrumbs::for('store', function ($trail, $request) {
 });
 
 // Home > Category > Brand > Product
-Breadcrumbs::for('product', function ($trail, $product) {
+Breadcrumbs::for('product', function ($trail, Product $product) {
 
     $trail->parent('/');
-    $trail->push('Shop', route('store'));
+    $trail->push(trans('pages.shop.title'), route('store'));
     $trail->push($product->category->name, route('store', ['category' => $product->category->name]));
     $trail->push($product->manufacturer->name, route('store', ['category' => $product->category->name, 'brand' => $product->manufacturer->name]));
     $trail->push($product->get('name'), $product->getUrl());
