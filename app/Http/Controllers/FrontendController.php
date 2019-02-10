@@ -130,21 +130,28 @@ class FrontendController extends Controller
 
         // Get brands based on selected category
         if (request()->category) {
-            $brands = Category::where('name', request()->category)->first()->manufacturers;
+
+            //$brands = Category::where('name', request()->category)->first()->manufacturers;
+
+            $brands = Manufacturer::with([
+                'category',
+                'products',
+            ])
+                ->has('products')
+                ->whereHas('category', function ($q) {
+                    $q->where('name', request()->category);
+                })
+                ->get();
+
 
             foreach ($brands as $brand) {
-                $this->productName = $brand->name;
-                // Get products quantity for manufacturers of choosen category
-                $product_qty = Product::with('category')->whereHas('category', function ($query) {
-                $query->where('name', request()->category);
-                })
-                ->whereHas('manufacturer', function ($query) {
-                    $query->where('name', $this->productName);
-                });
-                $brand->product_qty = $product_qty->get();
+
+                $brand->product_qty = $brand->products;
             }
         } else {
-            $brands = Manufacturer::all();
+
+            $brands = Manufacturer::with('products')->has('products')->get();
+
             foreach ($brands as $brand) {
 
                 $brand->product_qty = $brand->products;
