@@ -28,6 +28,11 @@ class VerifyEmail extends Mailable
     public $expiration;
 
     /**
+     * @var string
+     */
+    public $link;
+
+    /**
      * Create a new message instance.
      *
      * @param CanVerifyEmail $user
@@ -51,8 +56,11 @@ class VerifyEmail extends Mailable
         $email = $this->user->getEmailForEmailVerification();
 
         // Create activation link
-        $link = route('verifyEmail', ['email' => $email, 'expiration' => $this->expiration, 'token' => $this->token]);
+        $this->link = route('verifyEmail', ['email' => $email, 'expiration' => $this->expiration, 'token' => $this->token]);
 
-        //return $this->view('view.name');
+        return $this
+            ->to($email)
+            ->subject(trans('emails.verify_email.title'))
+            ->view('emails.dist.content.verify_email');
     }
 }

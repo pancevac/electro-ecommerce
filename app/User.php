@@ -37,7 +37,8 @@ class User extends \TCG\Voyager\Models\User implements CanVerifyEmailContract
         return $this->hasMany('App\Models\Order');
     }
 
-    public function isAdmin() {
+    public function isAdmin()
+    {
         return $this->isAdmin;
     }
 }
