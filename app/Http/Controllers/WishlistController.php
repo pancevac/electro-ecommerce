@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddToWishList;
 use App\Models\Product;
+use App\Traits\SEO;
 use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class WishlistController extends Controller
 {
+    use SEO;
 
     /**
      * WishlistController constructor.
@@ -30,6 +32,8 @@ class WishlistController extends Controller
      */
     public function index()
     {
+        $this->seoDefault(trans('pages.wish_list.title'));
+
         $this->restoreWishListSession();
 
         // Load wish list items saved in wish list

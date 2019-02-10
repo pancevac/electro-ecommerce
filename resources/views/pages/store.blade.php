@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('title')
-    Store
-@endsection()
-
 @section('js')
     <script>
         $('#sortBy').on('change', function (e) {

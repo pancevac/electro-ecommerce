@@ -7,6 +7,7 @@ use App\Models\Manufacturer;
 use App\Models\Newsletter;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Traits\SEO;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Log;
 
 class FrontendController extends Controller
 {
+    use SEO;
+
     private $productName;
     private $cacheMinutes;
     protected $test;
@@ -31,6 +34,9 @@ class FrontendController extends Controller
      */
     public function index()
     {
+        // Prepare SEO for home page
+        $this->seoHome();
+
         // Get product model instance
         $model = new Product();
         // Get random products
@@ -102,6 +108,9 @@ class FrontendController extends Controller
             ->where('code', $productCode)
             ->first();
 
+        // Prepare seo for product page
+        $this->seoProduct($product);
+
         // Get related products based on loaded product's category
         $relatedProducts = $product->getRelatedProducts();
 
@@ -113,6 +122,9 @@ class FrontendController extends Controller
 
     public function store()
     {
+        // Prepare seo for shop page
+        $this->seoDefault(trans('pages.shop.title'));
+
         // Get categories
         $categories = Category::all();
 

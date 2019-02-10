@@ -176,13 +176,15 @@ return [
         'button' => 'Početna strana',
     ],
     'login' => [
-            'registered-users' => 'Registrovani korisnici',
-            'registered-users-description' => 'Ukoliko već imate kreiran korisnički nalog kod nas, molimo Vas prijavite se.',
-            'new-users' => 'Novi korisnici',
-            'new-users-description' => 'Kreiranjem korisničkog računa omogućeno Vam je brže i jednostavnije kupovanje porudžbina, promena podataka, kao i pregled i praćenje statusa Vaših porudžbina i pregled dosadašnjih porudžbina.',
+        'title' => 'Prijava',
+        'registered-users' => 'Registrovani korisnici',
+        'registered-users-description' => 'Ukoliko već imate kreiran korisnički nalog kod nas, molimo Vas prijavite se.',
+        'new-users' => 'Novi korisnici',
+        'new-users-description' => 'Kreiranjem korisničkog računa omogućeno Vam je brže i jednostavnije kupovanje porudžbina, promena podataka, kao i pregled i praćenje statusa Vaših porudžbina i pregled dosadašnjih porudžbina.',
     ],
     'register' => [
-            'registered-users' => 'Registrovani korisnici',
-            'registered-users-description' => 'Popunite sledeće informacije kako biste kreirali svoj korisnički nalog.',
+        'title' => 'Registracija',
+        'registered-users' => 'Registrovani korisnici',
+        'registered-users-description' => 'Popunite sledeće informacije kako biste kreirali svoj korisnički nalog.',
     ],
 ];

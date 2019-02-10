@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Traits\SEO;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,7 @@ class RegisterController extends Controller
 
     use RegistersUsers;
     use VerifiesEmail;
+    use SEO;
 
     /**
      * Where to redirect users after registration.
@@ -45,12 +47,23 @@ class RegisterController extends Controller
     }
 
     /**
+     * @inheritDoc
+     */
+    public function showRegistrationForm()
+    {
+        $this->seoDefault(trans('pages.register.title'));
+        return view('auth.register');
+    }
+
+
+    /**
      * Show form to the user which allows resending the verification mail
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function showResendVerificationEmailForm()
     {
+        $this->seoDefault('Resend email');
         $user = Auth::user();
         return view('auth.resend_email', ['verified' => $user->verified, 'email' => $user->email]);
     }

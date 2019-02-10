@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Traits\SEO;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
+    use SEO;
+
     protected $user;
 
     /**
@@ -31,6 +34,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        // Prepare SEO for customer profile page.
+        $this->seoDefault(trans('pages.profile.title'));
+
         return view('home', [
             'user' => $this->user,
         ]);
@@ -38,6 +44,9 @@ class UserController extends Controller
 
     public function edit()
     {
+        // Prepare SEO for customer edit profile page.
+        $this->seoDefault(trans('pages.edit_profile.title'));
+
         return view('pages.user_form', [
             'user' => $this->user,
         ]);
@@ -61,12 +70,17 @@ class UserController extends Controller
 
     public function orders()
     {
+        $this->seoDefault(trans('pages.orders.title'));
+
         $orders = $this->user->orders->where('error', false);
+
         return view('pages.orders')->with('orders', $orders);
     }
 
     public function order($id)
     {
+        $this->seoDefault(trans('pages.order.title'));
+
         // Get order
         $order = $this->user->orders->where('id', $id)->first();
 

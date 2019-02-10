@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('title')
-  {{ $product->get('name') }}
-@endsection()
-
 @section('breadcrumbs', Breadcrumbs::render('product', $product))
 
 @section('content')

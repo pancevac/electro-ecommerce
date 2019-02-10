@@ -176,12 +176,14 @@ return [
         'button' => 'Home page',
     ],
     'login' => [
+        'title' => 'Login',
         'registered-users' => 'Registered users',
         'registered-users-description' => 'If you already registered, please login.',
         'new-users' => 'New users',
         'new-users-description' => 'Description on english.',
     ],
     'register' => [
+        'title' => 'Register',
         'registered-users' => 'Registered users',
         'registered-users-description' => 'Please fill fields bellow to create your user account.',
     ],

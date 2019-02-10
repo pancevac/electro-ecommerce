@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-@section('title')
-  Checkout
-@endsection()
-
-
 @section('css')
   <link type="text/css" rel="stylesheet" href="{{ asset('css/stripe.css') }}"/>
   <script src="https://js.stripe.com/v3/"></script>

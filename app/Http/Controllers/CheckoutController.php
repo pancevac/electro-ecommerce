@@ -7,6 +7,7 @@ use App\Mail\OrderShipped;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Traits\SEO;
 use Cartalyst\Stripe\Exception\CardErrorException;
 use Cartalyst\Stripe\Stripe;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
+    use SEO;
+
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +26,9 @@ class CheckoutController extends Controller
      */
     public function index()
     {
+        // Prepare SEO for checkout page.
+        $this->seoDefault(trans('pages.checkout.title'));
+
         // Get cart items
         $CartContent = Cart::instance('shopping')->content();
 
@@ -86,6 +92,9 @@ class CheckoutController extends Controller
             // Success
             Cart::instance('shopping')->destroy();
             session()->forget('coupon');
+
+            $this->seoDefault(trans('pages.thank_you.title'));
+
             return redirect()->route('thankyou')->with('success_message', 'Thank you! Your payment has been successfully accepted!');
 
             // Catch error with invalid card

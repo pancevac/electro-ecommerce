@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddToCartRequest;
 use App\Http\Requests\UpdateInCartRequest;
 use App\Models\Product;
+use App\Traits\SEO;
 use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    use SEO;
+
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +21,9 @@ class CartController extends Controller
      */
     public function index()
     {
+        // Prepare SEO for shopping cart page.
+        $this->seoDefault(trans('pages.cart.title'));
+
         $cartItems = getCartItems();
 
         return view('pages.cart')->with('cartItems', $cartItems);

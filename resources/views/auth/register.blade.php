@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('title')
-    Register
-@endsection()
-
 @section('breadcrumbs', Breadcrumbs::render('register'))
 
 @section('content')

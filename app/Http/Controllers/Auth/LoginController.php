@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Traits\SEO;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -19,6 +20,7 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+    use SEO;
 
     /**
      * Where to redirect users after login.
@@ -45,6 +47,9 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         session()->put('previousUrl', url()->previous());
+
+        // Prepare SEO for login page.
+        $this->seoDefault(trans('pages.login.title'));
 
         return view('auth.login');
     }

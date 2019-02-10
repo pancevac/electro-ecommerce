@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Order Detail')
-
 @section('breadcrumbs')
   {{ Breadcrumbs::render('user.order', $order) }}
 @endsection

@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Wish list')
-
 @section('breadcrumbs')
   {{ Breadcrumbs::render('wishlist.index') }}
 @endsection()

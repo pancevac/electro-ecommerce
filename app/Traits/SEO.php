@@ -36,7 +36,7 @@ trait SEO
             ->setDescription(setting('site.description'))
             ->setUrl(url()->current())
             ->setSiteName('Electro ecommerce')
-            ->addImage(setting('site.logo'))
+            ->addImage(asset('storage/' . setting('site.logo')))
             ->addProperty('locale', app()->getLocale())
             ->setType('articles');
     }
@@ -67,7 +67,7 @@ trait SEO
             ->setTitle($product->get('name'))
             ->setDescription($product->get('description'))
             ->setUrl($product->getUrl())
-            ->addImage(asset($product->image))
+            ->addImage(productImage($product->image))
             ->setSiteName('Electro ecommerce')
             ->addProperty('locale', app()->getLocale())
             ->setType('articles');
