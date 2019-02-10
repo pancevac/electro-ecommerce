@@ -1,0 +1,11 @@
+<!-- NAVBAR -->
+<mj-section background-color="black">
+  <mj-column>
+    <mj-navbar base-url="https://mjml.io" hamburger="hamburger" ico-color="#ffffff">
+      <mj-navbar-link href="/gettings-started-onboard" color="#ffffff" padding="0px 30px">Home</mj-navbar-link>
+      <mj-navbar-link href="/try-it-live" color="#ffffff" padding="0px 30px">Shop</mj-navbar-link>
+      <mj-navbar-link href="/templates" color="#ffffff" padding="0px 30px">Contact</mj-navbar-link>
+    </mj-navbar>
+  </mj-column>
+</mj-section>
+<!-- END-NAVBAR -->

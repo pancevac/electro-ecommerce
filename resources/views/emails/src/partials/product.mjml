@@ -1,0 +1,11 @@
+<!-- PRODUCT -->
+<mj-column>
+  <mj-image padding="0" src="http://localhost:8000/img/product01.png" />
+  <mj-text align="center" font-size="14px">
+    <p>Brand</p>
+    <p style="color: #808080;">Product code</p>
+    <p style="text-transform: uppercase;"><span style="text-transform: none;">Category</span>Product name</p>
+    <p style="color: #ed1c24;">0.00 RSD</p>
+  </mj-text>
+</mj-column>
+<!-- END-PRODUCT -->

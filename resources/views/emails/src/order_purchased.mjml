@@ -1,0 +1,101 @@
+<mjml>
+  <mj-head>
+    <mj-font name="Roboto" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+    <mj-attributes>
+      <mj-all font-family="Roboto"/>
+    </mj-attributes>
+  </mj-head>
+  <mj-body background-color="white">
+
+    <mj-include path="./partials/top_bar.mjml" />
+
+    <mj-include path="./partials/nav.mjml" />
+
+    <mj-section>
+      <mj-column>
+        <mj-text text-transform="uppercase" align="center">
+          <h1>
+            VAŠA PORUDŽBINA JE SPREMNA ZA DOSTAVU
+          </h1>
+        </mj-text>
+        <mj-text align="center" font-size="16px">
+            Vaša porudžbina je obrađena i spremna za slanje!
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding-top="0px">
+      <mj-column>
+      <mj-text font-weight="500" font-size="25px" padding-top="20px">
+            Detalji porudžbine:
+      </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./partials/order_purchased_product.mjml" />
+    <mj-include path="./partials/order_purchased_product.mjml" />
+
+
+    <mj-section padding-top="0px">
+      <mj-column>
+      <mj-text font-size="15px" padding-top="0px" font-weight="500"> Broj narudžbine: <span class="span"> 10</span></mj-text>
+      <mj-text font-size="15px" padding-top="0px" font-weight="500"> Datum narudžbine <span class="span"> 28.1.2019</span></mj-text>
+      <mj-text font-size="15px" padding-top="0px" font-weight="500"> Način plaćanja: <span class="span"> kartica</span></mj-text>
+
+      <mj-spacer height="30px" />
+
+      <mj-text font-size="15px" padding-top="0px" font-weight="500"> Ime: <span class="span"> Ime</span></mj-text>
+      <mj-text font-size="15px" padding-top="0px" font-weight="500"> Prezime: <span class="span"> Prezime</span></mj-text>
+      <mj-text font-size="15px" padding-top="0px" font-weight="500"> E-mail: <span class="span"> email@email</span></mj-text>
+      <mj-text font-size="15px" padding-top="0px" font-weight="500"> Telefon: <span class="span"> 0248671205</span></mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding-top="0px">
+      <mj-column>
+      <mj-text font-weight="500" font-size="25px" padding-top="20px">
+            Adresa za dostavu:
+      </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding-top="0px">
+      <mj-column>
+      <mj-text font-size="15px" padding-top="0px" font-weight="500"> Adresa: <span class="span"> Adresa</span></mj-text>
+      <mj-text font-size="15px" padding-top="0px" font-weight="500"> Grad: <span class="span"> Grad</span></mj-text>
+      <mj-text font-size="15px" padding-top="0px" font-weight="500"> Poštanski broj: <span class="span"> Broj</span></mj-text>
+      <mj-text font-size="15px" padding-top="0px" font-weight="500"> Država: <span class="span"> Drzava</span></mj-text>
+      </mj-column>
+    </mj-section>
+
+       <mj-section>
+      <mj-column>
+        <mj-divider border-width="1px" border-style="solid" border-color="lightgrey" />
+      </mj-column>
+    </mj-section>
+
+
+    <mj-section padding-top="10px">
+      <mj-column>
+        <mj-table>
+          <tr>
+            <td style="padding: 0 15px 0 0; font-size: 18px; line-height: 25px; text-align:left;">Cena sa PDV-om</td>
+            <td style="padding: 0 15px; font-size: 18px; line-height: 25px; text-align:right;">2980.00 RSD</td>
+          </tr>
+          <tr>
+            <td style="padding: 0 15px 0 0; font-size: 18px; line-height: 25px; text-align:left;">Transport i dostava</td>
+            <td style="padding: 0 15px; font-size: 18px; line-height: 25px; text-align:right;">0 RSD</td>
+          </tr>
+          <tr>
+            <td style="padding: 0 15px 0 0; font-size: 20px; font-weight: 500; line-height: 25px; text-align:left;">Ukupno</td>
+            <td style="padding: 0 15px; font-size: 20px; font-weight: 500; line-height: 25px; text-align:right;">2980.00 RSD</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./partials/follow_us.mjml" />
+
+
+  </mj-body>
+</mjml>

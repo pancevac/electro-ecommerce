@@ -1,0 +1,26 @@
+<!-- TAGS -->
+    <mj-section background-color="black" border-bottom="1px solid #333333;">
+      <mj-column>
+        <mj-image width="150px" src="img/SL_logo.png" padding-top="20px" padding-left="0px"></mj-image>
+      </mj-column>
+      <mj-column>
+        <mj-text color="white" font-size="10px" line-height="15px">S&L je uvoznik satova i nakita:
+          <a href="#" style="text-decoration:none; color: white;">LONGINES,</a>
+          <a href="#" style="text-decoration:none; color: white;">Gc,</a>
+          <a href="#" style="text-decoration:none; color: white;">CERRUTI 1881,</a>
+          <a href="#" style="text-decoration:none; color: white;">HUGO BOSS,</a>
+          <a href="#" style="text-decoration:none; color: white;">ROSEFIELD,</a>
+          <a href="#" style="text-decoration:none; color: white;">NAUTICA,</a>
+          <a href="#" style="text-decoration:none; color: white;">GUESS,</a>
+          <a href="#" style="text-decoration:none; color: white;">CASIO,</a>
+          <a href="#" style="text-decoration:none; color: white;">G-SHOCK,</a>
+          <a href="#" style="text-decoration:none; color: white;">EDIFICE,</a>
+          <a href="#" style="text-decoration:none; color: white;">ROYAL LONDON,</a>
+          <a href="#" style="text-decoration:none; color: white;">ESPRIT,</a>
+          <a href="#" style="text-decoration:none; color: white;">ADORE,</a>
+          <a href="#" style="text-decoration:none; color: white;">KARL LAGERFELD,</a>
+          <a href="#" style="text-decoration:none; color: white;">BROSWAY.</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <!-- END TAGS -->

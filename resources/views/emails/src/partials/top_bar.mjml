@@ -1,0 +1,7 @@
+<!-- TOP BAR -->
+<mj-section background-color="black" border-bottom="1px solid #333333;">
+  <mj-column>
+    <mj-image width="200px" src="http://localhost:8000/img/logo.png">
+  </mj-column>
+</mj-section>
+<!-- END TOP BAR -->

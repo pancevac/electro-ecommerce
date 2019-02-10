@@ -1,0 +1,25 @@
+<!-- FOOTER -->
+<mj-section border-top="1px solid #333333;" padding-bottom="0px" padding-top="0px">
+  <mj-column>
+    <mj-text font-size="18px" align="center">
+      <p>
+        Follow us
+      </p>
+    </mj-text>
+  </mj-column>
+</mj-section>
+
+<mj-section padding-top="0px">
+      <mj-column>
+        <mj-social padding-top="0px" padding-left="0px" padding-right="5px" inner-padding="20px" icon-size="30px">
+          <mj-social-element href="#"
+                             src="http://localhost:8002/sl/img/fb-logo.png">
+          </mj-social-element>
+
+          <mj-social-element href="#"
+                             src="http://localhost:8002/sl/img/ins-logo.png">
+          </mj-social-element>
+        </mj-social>
+      </mj-column>
+    </mj-section>
+<!-- END-FOOTER -->

@@ -1,0 +1,12 @@
+<!-- NEWSLETTER -->
+    <mj-section background-color="black" padding="0px">
+      <mj-column>
+        <mj-text color="white" align="center">
+          <p>
+            Dobili ste ovu poruku jer ste se prijavili na mejling listu na sajtu <a href="#" style="text-decoration: none; color: #ed1c24;">www.electro-ecommerce.rs.</a>
+            Da biste se odjavili sa mejling liste sajta S&L, kliknite <a href="#" style="text-decoration: none; color: #ed1c24;">ovde</a>.
+          </p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <!-- END NEWSLETTER -->

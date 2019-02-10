@@ -1,0 +1,51 @@
+<mjml>
+  <mj-head>
+    <mj-font name="Roboto" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+    <mj-attributes>
+      <mj-all font-family="Roboto"/>
+    </mj-attributes>
+  </mj-head>
+  <mj-body background-color="white">
+
+    <mj-include path="./partials/top_bar.mjml" />
+
+    <mj-include path="./partials/nav.mjml" />
+
+    <!-- Naslov -->
+    <mj-section>
+      <mj-column padding-top="50px">
+        <mj-text color="#575759" font-size="20px" text-transform="uppercase" align="center">
+            Kliknite na dugme i verifikujte svoj nalog
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <!-- END Naslov -->
+
+    <!-- BUTTON -->
+    <mj-section>
+      <mj-column>
+        <mj-button background-color="#D10024" color="white" border-radius="50px" href="#">
+          Verifikuj
+         </mj-button>
+      </mj-column>
+    </mj-section>
+    <!-- END BUTTON -->
+
+    <!-- LINK -->
+    <mj-section>
+      <mj-column>
+        <mj-text align="center">
+          <p>
+            Ukoliko ne mozete da kliknete na dugme, pratite ovaj link ispod
+            <a href="#">Link</a>
+          </p>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <!-- END BUTTON -->
+
+    <mj-include path="./partials/follow_us.mjml" />
+
+
+  </mj-body>
+</mjml>

@@ -1,0 +1,17 @@
+<!-- PRODUCT -->
+ <mj-section background-color="white">
+   <mj-raw>
+   </mj-raw>
+    <mj-column>
+      <mj-image width="200px" src="http://localhost:8000/img/product01.png"></mj-image>
+    </mj-column>
+     <mj-raw>
+     </mj-raw>
+    <mj-column padding-top="40px">
+      <mj-text text-transform="uppercase" font-size="16px">Naziv: <span class="span">Ime proizvoda</span></mj-text>
+      <mj-text text-transform="uppercase" font-size="16px">Šifra: <span class="span">A0451849-00</span></mj-text>
+      <mj-text text-transform="uppercase" font-size="16px">Količina: <span class="span">1</span></mj-text>
+      <mj-text text-transform="uppercase" font-size="16px">Cena: <span class="span">20000 RSD</span></mj-text> 
+    </mj-column>
+</mj-section>
+<!-- END PRODUCT -->
