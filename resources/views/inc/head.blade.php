@@ -6,7 +6,8 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ setting('site.title') }} - @yield('title')</title>
+    {{--<title>{{ setting('site.title') }} - @yield('title')</title>--}}
+    {!! SEO::generate() !!}
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
