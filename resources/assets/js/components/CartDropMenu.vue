@@ -122,7 +122,7 @@
        */
       removeItem(index) {
 
-        axios.delete(this.locale + '/cartAjax/' + index)
+        axios.delete(this.appUrl + this.locale + '/cartAjax/' + index)
           .then(response => {
             this.$toasted.global.toastSuccess({ message: response.data.message });
 

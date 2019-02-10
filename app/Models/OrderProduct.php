@@ -28,7 +28,7 @@ class OrderProduct extends Model
             ->pluck('product_id')
             ->toArray();
 
-        $products = Product::with(['translations', 'category', 'discount'])
+        $products = Product::with(['translations', 'category', 'discount', 'manufacturer'])
             ->findMany($productsIds);
 
         return $products->sortBy(function ($model) use ($productsIds) {

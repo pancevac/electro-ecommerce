@@ -15,7 +15,7 @@ return [
         'order' => 'customer/order/{order}',
     ],
 
-    'product' => 'product/{product}',
+    'product' => 'products/{category}/{manufacturer}/{product}/{code}',
     'shop' => 'shop',
 
     'checkout' => 'checkout',

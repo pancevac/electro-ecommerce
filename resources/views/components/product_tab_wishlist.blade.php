@@ -47,8 +47,12 @@
     <div class="product-btns">
       <button class="add-to-compare"><i class="fa fa-exchange"></i><span
             class="tooltipp">{{ __('partials.product.add_to_compare') }}</span></button>
-      <button class="quick-view" onclick="window.location.href='{{ route('product', ['id' => $product->id]) }}'"><i
-            class="fa fa-eye"></i><span class="tooltipp">{{ __('partials.product.quick_view') }}</span></button>
+      <button
+          class="quick-view"
+          onclick="window.location.href='{{ $product->model->getUrl() }}'">
+        <i class="fa fa-eye"></i>
+        <span class="tooltipp">{{ __('partials.product.quick_view') }}</span>
+      </button>
     </div>
   </div>
 

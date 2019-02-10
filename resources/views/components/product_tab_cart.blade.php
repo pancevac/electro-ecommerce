@@ -70,7 +70,7 @@
 
       <button
           class="quick-view"
-          onclick="window.location.href='{{ route('product', ['id' => $item->id]) }}'"
+          onclick="window.location.href='{{ $item->model->getUrl() }}'"
       >
         <i class="fa fa-eye"></i>
         <span class="tooltipp">{{ __('partials.product.quick_view') }}</span>

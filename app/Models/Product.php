@@ -72,7 +72,7 @@ class Product extends Model implements Buyable
 
     public function mightAlsoLike($limit)
     {
-        return $this->with(['translations', 'category', 'discount', 'comments'])
+        return $this->with(['translations', 'category', 'manufacturer', 'discount', 'comments'])
             ->inRandomOrder()->take($limit)->get();
     }
 
@@ -94,7 +94,12 @@ class Product extends Model implements Buyable
      */
     public function getUrl()
     {
-        return route('product', ['product' => $this->id]);
+        return route('product', [
+            'category' => $this->category->slug,
+            'manufacturer' => $this->manufacturer->slug,
+            'product' => $this->get('slug'),
+            'code' => $this->code,
+        ]);
     }
 
     /**
@@ -229,10 +234,10 @@ class Product extends Model implements Buyable
 
     public function getRelatedProducts()
     {
-        return $this->with(['translations', 'category', 'comments', 'discount'])
+        return $this->with(['translations', 'category', 'comments', 'manufacturer', 'discount'])
             ->whereHas('category', function($category) {
-            $category->where('id', $this->category->id);
-        })
+                $category->where('id', $this->category->id);
+            })
             ->where('id', '<>', $this->id)
             ->inRandomOrder()
             ->take(4)

@@ -15,7 +15,7 @@ return [
         'order' => 'porudzbine/{order}',
     ],
 
-    'product' => 'proizvod/{product}',
+    'product' => 'proizvodi/{category}/{manufacturer}/{product}/{code}',
     'shop' => 'shop',
 
     'checkout' => 'checkout',

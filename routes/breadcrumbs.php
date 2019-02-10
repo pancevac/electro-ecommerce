@@ -87,7 +87,7 @@ Breadcrumbs::for('product', function ($trail, $product) {
     $trail->push('Shop', route('store'));
     $trail->push($product->category->name, route('store', ['category' => $product->category->name]));
     $trail->push($product->manufacturer->name, route('store', ['category' => $product->category->name, 'brand' => $product->manufacturer->name]));
-    $trail->push($product->get('name'));
+    $trail->push($product->get('name'), $product->getUrl());
 });
 
 

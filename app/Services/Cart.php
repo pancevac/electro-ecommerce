@@ -47,7 +47,7 @@ class Cart
 
         // Get associated products, append product link and hide useless properties
         // We do this because products are not eager-loaded in shopping cart
-        $products = Product::with(['category', 'discount', 'comments'])
+        $products = Product::with(['category', 'manufacturer', 'discount', 'comments'])
             ->whereIn('id', $content->pluck('id'))
             ->get()->each
             ->setAppends(['link', 'smallImage'])

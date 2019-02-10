@@ -35,7 +35,7 @@ class FrontendController extends Controller
         $model = new Product();
         // Get random products
         $featuredProducts = Cache::remember('featured_products', $this->cacheMinutes, function () use ($model) {
-            return $model->with(['translations', 'category', 'discount', 'comments'])
+            return $model->with(['translations', 'category','manufacturer', 'discount', 'comments'])
                 ->take(10)
                 ->where('featured', true)
                 ->get();
@@ -43,7 +43,7 @@ class FrontendController extends Controller
 
         // Get new products
         $newProducts = Cache::remember('new_products', $this->cacheMinutes, function () use ($model) {
-            return $model->with(['translations', 'category', 'discount', 'comments'])
+            return $model->with(['translations', 'category','manufacturer', 'discount', 'comments'])
                 ->take(10)
                 ->orderBy('created_at', 'DESC')
                 ->get();
@@ -64,7 +64,7 @@ class FrontendController extends Controller
 
         // Discount products
         $discounts = Cache::remember('discounts', $this->cacheMinutes, function () use ($model) {
-            return $model->with(['translations', 'category', 'discount'])
+            return $model->with(['translations', 'category', 'manufacturer', 'discount'])
                 ->has('discount')
                 ->inRandomOrder()
                 ->get();
@@ -82,15 +82,25 @@ class FrontendController extends Controller
     /**
      * Show page with product
      *
-     * @param $id
+     * @param $categorySlug
+     * @param $manufacturerSlug
+     * @param $productSlug
+     * @param $productCode
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function product($id)
+    public function product($categorySlug, $manufacturerSlug, $productSlug, $productCode)
     {
         // Get product by id with comments and others relationships
-        $product = Product::with(['translations', 'category', 'discount', 'manufacturer', 'comments' => function ($comments) {
+        $product = Product::with([
+            'translations',
+            'category',
+            'discount',
+            'manufacturer',
+            'comments' => function ($comments) {
             $comments->where('approved', true)->orderBy('created_at', 'DESC');
-        }])->where('id', $id)->first();
+        }])
+            ->where('code', $productCode)
+            ->first();
 
         // Get related products based on loaded product's category
         $relatedProducts = $product->getRelatedProducts();
