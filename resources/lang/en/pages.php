@@ -61,6 +61,7 @@ return [
     'wish_list' => [
         'title' => 'Wish List',
         'label' => 'Your wish list',
+        'add_all_to_cart' => 'Add all to shopping cart',
     ],
 
     'shop' => [

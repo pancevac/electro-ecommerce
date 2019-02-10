@@ -23,10 +23,10 @@
 
 
             <li>
-              <a href="{{ url()->current() . '/?currency=eur' }}"><i class="fa fa-euro"></i> EUR</a>
+              <a href="{{ url()->current() . '/?currency=eur' }}"><i class="fa fa-money"></i> EUR</a>
             </li>
             <li style="padding-right: 20px; border-right: 1px solid white">
-              <a href="{{ url()->current() . '/?currency=rsd' }}"><i class="fa fa-euro"></i> RSD</a>
+              <a href="{{ url()->current() . '/?currency=rsd' }}"><i class="fa fa-money"></i> RSD</a>
             </li>
 
             @guest

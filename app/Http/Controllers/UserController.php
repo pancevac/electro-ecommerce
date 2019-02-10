@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
     protected $user;
+
     /**
      * Create a new controller instance.
      *
@@ -30,12 +31,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('home')->with('user', $this->user);
+        return view('home', [
+            'user' => $this->user,
+        ]);
     }
 
     public function edit()
     {
-        return view('pages.user_form')->with('user', $this->user);
+        return view('pages.user_form', [
+            'user' => $this->user,
+        ]);
     }
 
     public function update(UserRequest $request)

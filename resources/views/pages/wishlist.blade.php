@@ -17,12 +17,12 @@
         <!-- section title -->
         <div class="col-md-12">
           <div class="section-title">
-            <h3 class="title">Your wish list ({{ $products->count() }})</h3>
+            <h3 class="title">{{ __('pages.wish_list.title') }} ({{ $products->count() }})</h3>
             <div class="section-nav">
               @if($products->count())
                 {{ Form::open(['method' => 'POST', 'route' => 'wishlist.addToCart']) }}
-                <button class="primary-btn order-submit" type="submit" name="submit" value="submit">Add all to shopping
-                  cart
+                <button class="primary-btn order-submit" type="submit" name="submit" value="submit">
+                  {{ __('pages.wish_list.add_all_to_cart') }}
                 </button>
                 {{ Form::close() }}
               @endif

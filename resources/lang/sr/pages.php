@@ -61,6 +61,7 @@ return [
     'wish_list' => [
         'title' => 'Lista želja',
         'label' => 'Vaša lista želja',
+        'add_all_to_cart' => 'Dodajte sve u korpu',
     ],
 
     'shop' => [

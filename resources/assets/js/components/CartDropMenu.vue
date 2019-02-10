@@ -63,6 +63,7 @@
     data() {
       return {
         appUrl: window.app_url + '/',
+        locale: document.documentElement.lang,
         visible: false,
       }
     },
@@ -121,7 +122,7 @@
        */
       removeItem(index) {
 
-        axios.delete('cartAjax/' + index)
+        axios.delete(this.locale + '/cartAjax/' + index)
           .then(response => {
             this.$toasted.global.toastSuccess({ message: response.data.message });
 

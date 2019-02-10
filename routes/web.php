@@ -27,18 +27,22 @@ Route::group([
     /**
      * User
      */
-    Route::get(LaravelLocalization::transRoute('routes.customer.dashboard'), 'UserController@index')->name('dashboard');
-    Route::get(LaravelLocalization::transRoute('routes.customer.edit'), 'UserController@edit')->name('user.edit');
-    Route::post(LaravelLocalization::transRoute('routes.customer.update'), 'UserController@update')->name('user.update');
-    Route::get(LaravelLocalization::transRoute('routes.customer.orders'), 'UserController@orders')->name('user.orders');
-    Route::get(LaravelLocalization::transRoute('routes.customer.order'),'UserController@order')->name('user.order');
+    Route::group(['middleware' => ['auth', 'isEmailVerified']], function () {
+        Route::get(LaravelLocalization::transRoute('routes.customer.dashboard'), 'UserController@index')->name('dashboard');
+        Route::get(LaravelLocalization::transRoute('routes.customer.edit'), 'UserController@edit')->name('user.edit');
+        Route::post(LaravelLocalization::transRoute('routes.customer.update'), 'UserController@update')->name('user.update');
+        Route::get(LaravelLocalization::transRoute('routes.customer.orders'), 'UserController@orders')->name('user.orders');
+        Route::get(LaravelLocalization::transRoute('routes.customer.order'),'UserController@order')->name('user.order');
+    });
     //Route::get('/home', 'HomeController@index')->name('home');
 
     /**
      * Checkout
      */
-    Route::get(LaravelLocalization::transRoute('routes.checkout'), 'CheckoutController@index')->name('checkout.index');
-    Route::post(LaravelLocalization::transRoute('routes.purchase'), 'CheckoutController@store')->name('charge');
+    Route::group(['middleware' => 'isEmailVerified'], function () {
+        Route::get(LaravelLocalization::transRoute('routes.checkout'), 'CheckoutController@index')->name('checkout.index');
+        Route::post(LaravelLocalization::transRoute('routes.purchase'), 'CheckoutController@store')->name('charge');
+    });
 
     /**
      * About us
@@ -76,18 +80,29 @@ Route::group([
     Route::get(LaravelLocalization::transRoute('routes.register-verify-resend'), 'Auth\RegisterController@showResendVerificationEmailForm')->name('showResendVerificationForm');
     Route::post(LaravelLocalization::transRoute('routes.register-verify-resend'), 'Auth\RegisterController@resendVerificationEmail')->name('resendVerification')->middleware('throttle:2,1');
 
+    /**
+     * Shopping cart
+     */
+    Route::get('cart', 'CartController@index')->name('cart.index');
+    Route::post('cart', 'CartController@store')->name('cart.store');
+    Route::put('cart/{rowId}', 'CartController@update')->name('cart.update');
+    Route::delete('cartAjax/{rowId}', 'CartController@AjaxDestroy')->name('cart.cartAjax');
+    Route::delete('cart/{rowId}', 'CartController@destroy')->name('cart.destroy');
+
+    /**
+     * Wish list
+     */
+    Route::post('wishlist/all', 'WishlistController@moveAllToCart')->name('wishlist.addToCart');
+    Route::resource('wishlist', 'WishlistController')->except(['create', 'show', 'update', 'edit']);
+
 });
 
 // Cart
-Route::get('cart', 'CartController@index')->name('cart.index');
+/*Route::get('cart', 'CartController@index')->name('cart.index');
 Route::post('cart', 'CartController@store')->name('cart.store');
 Route::put('cart/{rowId}', 'CartController@update')->name('cart.update');
 Route::delete('cartAjax/{rowId}', 'CartController@AjaxDestroy')->name('cart.cartAjax');
-Route::delete('cart/{rowId}', 'CartController@destroy')->name('cart.destroy');
-
-// Wish list
-Route::post('wishlist/all', 'WishlistController@moveAllToCart')->name('wishlist.addToCart');
-Route::resource('wishlist', 'WishlistController')->except(['create', 'show', 'update', 'edit']);
+Route::delete('cart/{rowId}', 'CartController@destroy')->name('cart.destroy');*/
 
 // Comment handler
 Route::put('product/{coupon}', [

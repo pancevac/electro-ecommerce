@@ -7,7 +7,7 @@
  */
 
 return [
-    'routes' => [
+    'customer' => [
         'dashboard' => 'customer/dashboard',
         'edit' => 'customer/edit',
         'update' => 'customer/update',
