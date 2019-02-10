@@ -37,5 +37,10 @@ return [
         'height' => 60,
         'method' => 'crop',
     ],
+    'product_email' => [
+        'width' => 200,
+        'height' => 200,
+        'method' => 'crop',
+    ],
 
 ];

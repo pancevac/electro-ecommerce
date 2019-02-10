@@ -138,6 +138,16 @@ class Product extends Model implements Buyable
     }
 
     /**
+     * Get optimized email product image.
+     *
+     * @return string
+     */
+    public function getEmailImageAttribute()
+    {
+        return \Imagecache::get($this->image, 'product_email')->src;
+    }
+
+    /**
      * Returns discounted price if there is discount, otherwise, return original price
      *
      * @return float

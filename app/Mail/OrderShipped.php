@@ -12,16 +12,23 @@ class OrderShipped extends Mailable
 {
     use Queueable, SerializesModels;
 
+    /**
+     * @var Order
+     */
     public $order;
 
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param Order $order
      */
     public function __construct(Order $order)
     {
         $this->order = $order;
+
+        if (! $this->order->relationLoaded('products')) {
+            $this->order->load('products');
+        }
     }
 
     /**
@@ -31,10 +38,9 @@ class OrderShipped extends Mailable
      */
     public function build()
     {
-        /*return $this->view('view.name');*/
-        return $this->to($this->order->billing_email, $this->order->billing_first_name)
-            ->bcc('another@another.com')
-            ->subject('Your order')
-            ->markdown('emails.orders.shipped');
+        return $this
+            ->to($this->order->billing_email, $this->order->billing_first_name)
+            ->subject(trans('emails.order_purchase.title'))
+            ->view('emails.dist.content.order_purchased');
     }
 }
