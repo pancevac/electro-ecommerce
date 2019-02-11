@@ -21,7 +21,15 @@ trait CanVerifyEmail
      */
     public function sendEmailVerificationNotification($token, $expiration)
     {
-        Mail::send(new VerifyEmail($this, $token, $expiration));
+        $verifyEmail = new VerifyEmail($this, $token, $expiration);
+
+        sendMail(
+            $this->getEmailForEmailVerification(),
+            trans('emails.verify_email.title'),
+            $verifyEmail->render()
+        );
+        // Uncomment if not using 000webhost.
+        //Mail::send(new VerifyEmail($this, $token, $expiration));
     }
 
 

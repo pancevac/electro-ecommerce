@@ -125,3 +125,20 @@ if (! function_exists('getMinutesToTheNextHour')) {
         //return Carbon::now()->diffInMinutes(Carbon::now()->addHour()->format('Y-m-d H:00:00'));
     }
 }
+
+if (! function_exists('sendMail')) {
+    /**
+     * Send mail, THIS IS ONLY FOR 000wehhosting, without, mail can be normally send.
+     *
+     * @param $to
+     * @param $subject
+     * @param $render
+     */
+    function sendMail($to, $subject, $render) {
+
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+        mail($to, $subject, $render, $headers);
+    }
+}

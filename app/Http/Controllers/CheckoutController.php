@@ -83,11 +83,13 @@ class CheckoutController extends Controller
             $order = $this->addToOrdersTables($request, null);
 
             // Send order Email to customer
-            Mail::send(new OrderShipped($order));
+            //Mail::send(new OrderShipped($order));
 
-            /*$orderShipped = new OrderShipped($order);
-            $test[1] = $order->billing_email;
-            dd($test);*/
+            sendMail(
+                $order->billing_email,
+                trans('emails.order_purchase.title'),
+                (new OrderShipped($order))->render()
+            );
 
             // Success
             Cart::instance('shopping')->destroy();
