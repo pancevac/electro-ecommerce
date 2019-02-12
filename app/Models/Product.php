@@ -228,7 +228,6 @@ class Product extends Model implements Buyable
 
     /**
      * Get the indexable data array for the model.
-     * TODO refaktuj u drugu strukturu, prvo lang: {attr1,attr2}
      *
      * @return array
      */
@@ -238,20 +237,17 @@ class Product extends Model implements Buyable
 
         $searchable = [];
 
-        foreach ($this->indexable as $attribute) {
-
-            foreach ($supportedLocales as $locale) {
-
-                $searchable[$attribute . '_' . $locale] = $this->getTranslatedAttribute($attribute, $locale);
-            }
-        }
-
         foreach ($supportedLocales as $locale) {
 
-            $searchable['link_' . $locale] = $this->getUrl($locale);
+            foreach ($this->indexable as $attribute) {
+
+                $searchable[$locale][$attribute] = $this->getTranslatedAttribute($attribute, $locale);
+            }
+
+            $searchable[$locale]['link'] = $this->getUrl($locale);
         }
 
-        $searchable['image'] = $this->getThumbImageAttribute();
+        $searchable['image'] = $this->thumbImage;
 
         return $searchable;
     }
