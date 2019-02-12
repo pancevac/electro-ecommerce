@@ -14,7 +14,7 @@ use TCG\Voyager\Traits\Translatable;
 class Product extends Model implements Buyable
 {
     use Commentable;
-    //use Searchable;
+    use Searchable;
     use Translatable;
     use HasBuyable;
 
@@ -35,6 +35,14 @@ class Product extends Model implements Buyable
      * @var array
      */
     protected $translatable = ['name', 'description', 'details'];
+
+    /**
+     * Indexable attributes for algolia search
+     * Note: without primary key!
+     *
+     * @var array
+     */
+    protected $indexable = ['name', 'description'];
 
     // Fillable attributes
 
@@ -216,6 +224,36 @@ class Product extends Model implements Buyable
     public function isInStock()
     {
         return $this->stock;
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     * TODO refaktuj u drugu strukturu, prvo lang: {attr1,attr2}
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $supportedLocales = \LaravelLocalization::getSupportedLanguagesKeys();
+
+        $searchable = [];
+
+        foreach ($this->indexable as $attribute) {
+
+            foreach ($supportedLocales as $locale) {
+
+                $searchable[$attribute . '_' . $locale] = $this->getTranslatedAttribute($attribute, $locale);
+            }
+        }
+
+        foreach ($supportedLocales as $locale) {
+
+            $searchable['link_' . $locale] = $this->getUrl($locale);
+        }
+
+        $searchable['image'] = $this->getThumbImageAttribute();
+
+        return $searchable;
     }
 
     public function store()
