@@ -23,13 +23,6 @@ class LoginController extends Controller
     use SEO;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -37,6 +30,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Where to redirect users after registration.
+     *
+     * @return string
+     */
+    protected function redirectTo()
+    {
+        return getLocalizedRoute('routes.customer.dashboard');
     }
 
     /**
@@ -54,8 +57,8 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function redirectPath()
+    /*public function redirectPath()
     {
         return str_replace(url('/'), '', session()->get('previousUrl', '/'));
-    }
+    }*/
 }

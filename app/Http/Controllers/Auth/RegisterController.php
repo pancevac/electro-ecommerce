@@ -29,13 +29,6 @@ class RegisterController extends Controller
     use SEO;
 
     /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -44,6 +37,16 @@ class RegisterController extends Controller
     {
         $this->middleware('guest', ['except' => ['verify', 'showResendVerificationEmailForm', 'resendVerificationEmail']]);
         $this->middleware('auth', ['only' => ['showResendVerificationEmailForm', 'resendVerificationEmail']]);
+    }
+
+    /**
+     * Where to redirect users after registration.
+     *
+     * @return string
+     */
+    protected function redirectTo()
+    {
+        return getLocalizedRoute('routes.customer.dashboard');
     }
 
     /**
