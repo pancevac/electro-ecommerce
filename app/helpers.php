@@ -28,12 +28,13 @@ if (! function_exists('getLocalizedURL')) {
      *
      * @param $url
      * @param array $attributes
-     * @return mixed
+     * @param null $locale
+     * @return string
      */
-    function getLocalizedURL($url, $attributes = []) {
+    function getLocalizedURL($url, $attributes = [], $locale = null) {
 
         return \LaravelLocalization::getLocalizedURL(
-            \LaravelLocalization::getCurrentLocale(),
+            $locale ? $locale : \LaravelLocalization::getCurrentLocale(), // if not set, current will be taken
             $url, // URL
             $attributes // Attributes for the url
         );
@@ -46,12 +47,13 @@ if (! function_exists('getLocalizedRoute')) {
      *
      * @param $routeTransKey
      * @param array $attributes
-     * @return mixed
+     * @param null $locale
+     * @return string
      */
-    function getLocalizedRoute($routeTransKey, $attributes = []) {
+    function getLocalizedRoute($routeTransKey, $attributes = [], $locale = null) {
 
         return \LaravelLocalization::getURLFromRouteNameTranslated(
-            \LaravelLocalization::getCurrentLocale(),
+            $locale ? $locale : \LaravelLocalization::getCurrentLocale(), // if not set, current will be taken
             $routeTransKey, // route trans key from  "resource/lang/[language]/routes"
             $attributes // Attributes for the route
         );

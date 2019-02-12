@@ -80,26 +80,32 @@ class Product extends Model implements Buyable
      * Get translatable attribute
      *
      * @param $attribute
+     * @param null $locale
      * @return string
      */
-    public function get($attribute)
+    public function get($attribute, $locale = null)
     {
-        return $this->getTranslatedAttribute($attribute);
+        return $this->getTranslatedAttribute($attribute, $locale);
     }
 
     /**
      * Generate product url
      *
+     * @param null $locale
      * @return string
      */
-    public function getUrl()
+    public function getUrl($locale = null)
     {
-        return route('product', [
-            'category' => $this->category->slug,
-            'manufacturer' => $this->manufacturer->slug,
-            'product' => $this->get('slug'),
-            'code' => $this->code,
-        ]);
+        return getLocalizedRoute(
+            'routes.product',
+            [
+                'category' => $this->category->slug,
+                'manufacturer' => $this->manufacturer->slug,
+                'product' => $this->get('slug', $locale),
+                'code' => $this->code,
+            ],
+            $locale
+        );
     }
 
     /**
