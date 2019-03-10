@@ -11,8 +11,6 @@
 |
 */
 
-use App\Mail\OrderShipped;
-
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localize'],
