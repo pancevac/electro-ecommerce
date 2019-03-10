@@ -1,4 +1,7 @@
-<p align="center"><img src="https://electro-shopp.000webhostapp.com/storage/settings/May2018/Xl1MlT4Qe9B3XtJuou7Y.png"></p>
+<p align="center"><img src="http://electro.sinisab.ml/img/home-img.png"></p>
+
+## Live preview
+http://electro.sinisab.ml
 
 ## About electro-ecommerce
 
@@ -14,5 +17,3 @@ Electro-ecommerce is simple e-commerce platform with integrated:
 - Nice [Toast notifications](https://github.com/shakee93/vue-toasted).
 - Optimized image loading ([lazy images](https://github.com/alexjoverm/v-lazy-image) and caching).
 
-### Live preview
-https://electro-shopp.000webhostapp.com
