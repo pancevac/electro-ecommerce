@@ -1,7 +1,7 @@
 <p align="center"><img src="http://electro.sinisab.ml/img/home-img.png"></p>
 
 ## Live preview
-http://electro.sinisab.ml
+http://electro.sinisab.tk
 
 ## About electro-ecommerce
 
