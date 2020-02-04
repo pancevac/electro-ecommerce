@@ -15,17 +15,17 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('cart-loader', require('./components/CartLoader.vue'));
-Vue.component('cart-drop-menu', require('./components/CartDropMenu.vue'));
-Vue.component('cart-add', require('./components/CartAdd.vue'));
-Vue.component('cart-add-multiple', require('./components/CartAddMultple.vue'));
-Vue.component('cart-remove', require('./components/CartRemove.vue'));
+Vue.component('cart-loader', require('./components/CartLoader.vue').default);
+Vue.component('cart-drop-menu', require('./components/CartDropMenu.vue').default);
+Vue.component('cart-add', require('./components/CartAdd.vue').default);
+Vue.component('cart-add-multiple', require('./components/CartAddMultple.vue').default);
+Vue.component('cart-remove', require('./components/CartRemove.vue').default);
 
-Vue.component('wish-list-add', require('./components/WishListAdd.vue'));
+Vue.component('wish-list-add', require('./components/WishListAdd.vue').default);
 
-Vue.component('notification', require('./components/notification'));
+Vue.component('notification', require('./components/notification').default);
 
-Vue.component('lazy-image', require('./components/LazyImage'));
+Vue.component('lazy-image', require('./components/LazyImage').default);
 
 import Toast from './packages/toastConfig';
 import { store } from "./store";
